@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post Card</title>
+  <link rel="stylesheet" href="teste.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+
+  <div class="card">
+    <!-- Header -->
+    <div class="header">
+      <img src="images/avatar.jpg" alt="Autor" class="avatar" />
+      <div class="author-info">
+        <div class="author-name">
+          <span>João da Silva</span>
+          <img src="images/verified.svg" alt="Verificado" class="verified-icon">
+          <span class="badge">ONG</span>
+        </div>
+        <p class="timestamp">Há 2 horas</p>
+      </div>
+    </div>
+
+    <!-- Conteúdo -->
+    <div class="content">
+      <p>Estamos arrecadando doações para ajudar famílias carentes neste inverno. Participe!</p>
+    </div>
+
+    <!-- Imagens -->
+    <div class="image-grid">
+      <img src="images/campanha1.jpg" alt="Imagem 1" class="post-image">
+      <img src="images/campanha2.jpg" alt="Imagem 2" class="post-image">
+    </div>
+
+    <!-- Campanha -->
+    <div class="campaign">
+      <div class="campaign-header">
+        <h3>Campanha de Inverno Solidário</h3>
+        <span class="badge blue"><span class="icon">🕒</span> 12d</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" style="width: 65%;"></div>
+      </div>
+      <div class="campaign-info">
+        <span class="raised">R$ 6.500 arrecadados</span>
+        <span class="goal">Meta: R$ 10.000</span>
+      </div>
+      <button class="btn donate">Doar Agora</button>
+    </div>
+
+    <!-- Ações -->
+    <div class="actions">
+      <button class="action-btn like-btn">
+        ❤️ <span class="count">120</span>
+      </button>
+      <button class="action-btn">
+        💬 <span class="count">34</span>
+      </button>
+      <button class="action-btn">
+        🔗 <span class="count">12</span>
+      </button>
+    </div>
+  </div>
+
+</body>
+</html>
