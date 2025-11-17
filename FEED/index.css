@@ -39,10 +39,10 @@ body {
 .topbar {
   background: #fff;
   width: 100%;
-  padding: 12px 20px;
+  padding: 3px 3px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
   box-shadow: 0 1px 0 rgba(0,0,0,0.04);
   position: sticky;
   top: 0;
@@ -67,7 +67,7 @@ body {
 }
 
 .search input {
-  width: 50%;
+  width: 35%;
   padding: 10px 14px;
   border-radius: 10px;
   border: 1px solid #e6e6ef;
