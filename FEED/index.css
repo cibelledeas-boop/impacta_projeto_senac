@@ -121,35 +121,49 @@ CONTEÚDO PRINCIPAL
 
 .interaction {
   display: flex;
-  
   align-items: center;
   margin-bottom: 24px;
   background-color: white;
   height: 55px;
   border-radius: 10px;
-  
+  padding: 0 10px;
 }
 
-.button-group button,
-.tab {
+.button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Botões individuais */
+.button-group button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   background: #fff;
-  border: 1px solid #ddd;
-  border: none;
-  margin-left: 10px;
+  border: 1px ;
   padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
+  transition: all 0.2s ease;
+  font-size: 14px;
 }
 
-.tab.active,
 .button-group button:hover {
-   background: linear-gradient(to right, #3b82f6, #10b981);
-  color: #fff;
-  border-color: var(--accent);
+  background-color: #f3f4f6;
 }
+
+/* Ícones nos botões */
+.button-group button svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+
 
 /*
  CARD DE POSTAGEM
