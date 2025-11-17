@@ -37,9 +37,10 @@ body {
  TOPO
 */
 .topbar {
+  height: 70px;
   background: #fff;
   width: 100%;
-  padding: 3px 3px;
+  padding: 4px 10px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -50,14 +51,17 @@ body {
 }
 
 .logo-area {
+  width: 180px;
+  padding: 10px;
+  
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .logo {
-  width: 100px;
-  height: auto;
+  width: 180px;
+  padding: 10px
 }
 
 .search {
@@ -84,7 +88,8 @@ body {
   background: transparent;
   border: 1px solid transparent;
   padding: 8px 12px;
-  border-radius: 10px;
+  border-radius: 8px;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
