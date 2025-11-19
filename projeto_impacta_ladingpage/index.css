@@ -1,0 +1,92 @@
+    body {
+      font-family: Sofia Sans Condensed;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    header {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 40px;
+      background: #DBEEF7;
+    }
+    header img {
+      height: 60px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    nav a:hover{
+        color: #FFBE01;
+        border-color: #1F055F;
+        stop-color: #1F055F;
+    }
+    .hero {
+      padding: 0px;
+      padding-right: 10%;
+      background-image: url('img/fundo-ondas-coloridas-design-moderno.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+    }
+    .hero img{
+        width: 60%;
+    }
+    .hero h1 {
+      font-size: 35px;
+      color: #EBCE0A;
+    }
+    .hero p {
+      max-width: 700px;
+      margin: 20px auto;
+      color: #1F055F;
+      font-size: 22px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #1F055F;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+    }
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 20px;
+      background: #fafafa;
+    }
+    .carousel img {
+      height: 100px;
+      border-radius: 8px;
+    }
+    .sobre{
+      display: flex;
+      align-items: center;
+      justify-content: right;
+      background-image: url('img/onda-fundo.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .sobre img{
+       width: 45%;
+       margin-left: 5%;
+    }
+    .sobre h2{
+      font-size: 35px;
+      color: #EBCE0A;
+    }
+    .sobre p{
+      max-width: 700px;
+      color: #1F055F;
+      font-size: 22px;
+    }
