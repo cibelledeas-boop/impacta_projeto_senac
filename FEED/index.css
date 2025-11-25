@@ -103,9 +103,6 @@ body {
   color: #fff;
   border-color: var(--accent);
 }
-#icon-plus{
-
-}
 .btn.primary:hover {
   background: #3b82f6;
 }
@@ -388,3 +385,197 @@ footer {
     max-width: 100%;
   }
 }
+
+/*BOTAO CRIAR POST */
+
+/* Fundo escuro transparente */
+.info-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* O quadro de informações */
+.info-box {
+  background: #fff;
+  width: 350px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  text-align: center;
+  animation: aparecer 0.2s ease-out;
+}
+
+/* Botão de fechar */
+.fechar {
+  margin-top: 15px;
+  padding: 8px 15px;
+  background: #ff5a5a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Animação */
+@keyframes aparecer {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Bloqueia scroll quando o quadro está aberto */
+body.no-scroll {
+  overflow: hidden;
+}
+/* ---------- OVERLAY ---------- */
+.info-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+  z-index: 999;
+}
+
+/* ---------- CAIXA DO FORMULÁRIO ---------- */
+.info-box {
+  background: var(--card);
+  width: 450px;
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.25s ease;
+}
+
+.info-box h2 {
+  text-align: center;
+  margin-bottom: 18px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* ---------- FORMULÁRIO ---------- */
+.post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.post-form label {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* CAIXA DE TEXTO */
+.post-form textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid #d7d7d7;
+  background: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  resize: none;
+  transition: 0.2s;
+}
+
+.post-form textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(90, 203, 255, 0.35);
+  outline: none;
+}
+
+/* ---------- BOTÃO PUBLICAR ---------- */
+.enviar-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.enviar-btn:hover {
+  background: #45b9e8;
+}
+
+/* ---------- BOTÃO FECHAR ---------- */
+.fechar {
+  margin-top: 12px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 16px;
+  background: #eef1f5;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--muted);
+  transition: 0.2s;
+}
+
+.fechar:hover {
+  background: #e2e6eb;
+}
+
+/* ---------- ANIMAÇÃO ---------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ---------- BLOQUEAR SCROLL AO ABRIR ---------- */
+.no-scroll {
+  overflow: hidden;
+}
+.botao-foto {
+  background: var(--accent);
+  color: #fff;
+  padding: 14px;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: 0.3s ease;
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.botao-foto:hover {
+  opacity: 0.9;
+}
+
+#foto {
+  display: none;
+}
+
