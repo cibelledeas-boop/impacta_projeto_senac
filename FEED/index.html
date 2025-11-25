@@ -21,40 +21,60 @@
 
     <div class="actions">
       <button class="btn">Entrar</button>
-      <button class="btn primary">
-        <i id="icon-plus" data-lucide="plus"></i>Criar Post</button>
+
+      <!-- AJUSTADO: id correto -->
+      <button class="btn primary" id="abrirInfo">
+        <i id="icon-plus" data-lucide="plus"></i>Criar Post
+      </button>
     </div>
   </header>
 
+  <!-- 🔹 OVERLAY — movido para fora do header -->
+  <div id="infoOverlay" class="info-overlay">
+    <div class="info-box">
+      <h2>Criar Post</h2>
+       <section class="interaction">
+      <div class="button-group">
+        <button id="btn_hist"><i data-lucide="filter"></i> História</button>
+        <button id="btn_camp"><i data-lucide="trending-up"></i> Campanha</button>
+        <button id="btn_itens"><i data-lucide="box"></i> Item</button>
+      </div>
+    </section>
+  <h4>Compartilhe sua história</h>
+
+  <form class="post-form">
+    <textarea id="textoPost" placeholder="Qual foi sua boa ação de hoje?" required></textarea>
+       <div class="upload-container">
+    <label for="foto" class="botao-foto"> Adicionar foto</label>
+    <input type="file" id="foto" accept="image/*">
+</div>
+
+
+    <button type="submit" class="btn primary enviar-btn">
+      Publicar
+    </button>
+  </form>
+
+  <button id="fecharInfo" class="fechar">Fechar</button>
+</div>
+  </div>
+
   <!-- 🔹 Conteúdo principal -->
   <main class="container">
+    
     <!-- Filtros -->
-       <section class="interaction">
-      
+    <section class="interaction">
       <div class="button-group">
-        <button id="btn_hist"> <i  data-lucide="filter"></i>
-          Tudo
-        </button>
-        <button id="btn_camp" ><i data-lucide="trending up"></i>
-          Campanhas
-        </button>
-        <button id="btn_itens" ><i data-lucide="box"></i>
-          Itens
-        </button>
-        <button id="btn_hist"><i  data-lucide="heart"></i>
-          Histórias
-        </button>
-        <button id="btn_hist"> <i data-lucide="map-pinned"></i>
-          Pontos de coleta
-        </button>
-
-        
+        <button id="btn_hist"><i data-lucide="filter"></i> Tudo</button>
+        <button id="btn_camp"><i data-lucide="trending-up"></i> Campanhas</button>
+        <button id="btn_itens"><i data-lucide="box"></i> Itens</button>
+        <button id="btn_hist"><i data-lucide="heart"></i> Histórias</button>
+        <button id="btn_hist"><i data-lucide="map-pinned"></i> Pontos de coleta</button>
       </div>
     </section>
 
     <!-- Card de postagem -->
     <article class="card">
-      <!-- Cabeçalho -->
       <div class="header">
         <img src="images/avatar.jpg" alt="Autor" class="avatar" />
         <div class="author-info">
@@ -67,18 +87,15 @@
         </div>
       </div>
 
-      <!-- Conteúdo -->
       <div class="content">
         <p>Estamos arrecadando doações para ajudar famílias carentes neste inverno. Participe!</p>
       </div>
 
-      <!-- Imagens -->
       <div class="image-grid">
         <img src="images/campanha1.jpg" alt="Imagem 1" class="post-image" />
         <img src="images/campanha2.jpg" alt="Imagem 2" class="post-image" />
       </div>
 
-      <!-- Campanha -->
       <section class="campaign">
         <div class="campaign-header">
           <h3>Campanha de Inverno Solidário</h3>
@@ -94,10 +111,9 @@
           <span class="goal">Meta: R$ 10.000</span>
         </div>
 
-        <button class="btn donate">Doar Agora </button>
+        <button class="btn donate">Doar Agora</button>
       </section>
 
-      <!-- Ações -->
       <div class="actions">
         <button class="action-btn like-btn">
           <i data-lucide="heart"></i>
@@ -116,7 +132,6 @@
     </article>
   </main>
 
-  <!-- 🔹 Rodapé -->
   <footer>
     <p>Impacta — Todos os direitos reservados aos autores.</p>
   </footer>
@@ -124,7 +139,8 @@
   <script src="script.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
-  lucide.createIcons();
-</script>
+    lucide.createIcons();
+  </script>
+
 </body>
 </html>
