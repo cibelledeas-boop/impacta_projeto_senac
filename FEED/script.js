@@ -1,9 +1,9 @@
-
-//  IMPACTA - Script principal
-
+// IMPACTA - Script principal
 
 document.addEventListener("DOMContentLoaded", () => {
-  //  Seleciona todos os botões de curtir
+  // =====================
+  // ❤️ BOTÃO LIKE
+  // =====================
   const likeButtons = document.querySelectorAll(".like-btn");
 
   likeButtons.forEach((btn) => {
@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const isLiked = btn.classList.toggle("liked");
       let currentCount = parseInt(countSpan.textContent);
 
-      // Atualiza número de curtidas
       if (isLiked) {
         countSpan.textContent = currentCount + 1;
         createFloatingHeart(btn);
@@ -22,19 +21,47 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  // =====================
+  // 🟦 BOTÃO CRIAR POST (MODAL)
+  // =====================
+  const overlay = document.getElementById("infoOverlay");
+  const abrir = document.getElementById("abrirInfo");
+  const fechar = document.getElementById("fecharInfo");
+
+  if (abrir) {
+    abrir.onclick = () => {
+      overlay.style.display = "flex";
+      document.body.classList.add("no-scroll");
+    };
+  }
+
+  if (fechar) {
+    fechar.onclick = () => {
+      overlay.style.display = "none";
+      document.body.classList.remove("no-scroll");
+    };
+  }
+
+  overlay.onclick = (e) => {
+    if (e.target === overlay) {
+      overlay.style.display = "none";
+      document.body.classList.remove("no-scroll");
+    }
+  };
 });
 
-/**
- * Cria um coração flutuante ao clicar no botão 
- */
+// =====================
+// ❤️ Coração flutuante
+// =====================
 function createFloatingHeart(button) {
   const heart = document.createElement("span");
   heart.textContent = "❤️";
   heart.classList.add("floating-heart");
   button.appendChild(heart);
 
-  // Remove após a animação
   setTimeout(() => {
     heart.remove();
   }, 800);
 }
+
