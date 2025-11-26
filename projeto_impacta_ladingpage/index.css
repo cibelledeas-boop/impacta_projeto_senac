@@ -1,8 +1,19 @@
+    *{
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 600;
+    }
     body {
-      font-family: Sofia Sans Condensed;
       margin: 0;
       padding: 0;
       text-align: center;
+    }
+    h2{
+      color:#EBCE0A;
+      font-size: 35px;
+      font-weight:100
+    }
+    p{
+      color: aliceblue;
     }
     header {
       display: flex;
@@ -27,9 +38,11 @@
         stop-color: #1F055F;
     }
     .hero {
-      padding: 0px;
+      padding-left: -0;
       padding-right: 10%;
-      background-image: url('img/fundo-ondas-coloridas-design-moderno.webp');
+       background: 
+       linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+       url('img/fundo-ondas-coloridas-design-moderno.webp');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -42,11 +55,11 @@
     .hero h1 {
       font-size: 35px;
       color: #EBCE0A;
+      font-weight: 300;
     }
     .hero p {
       max-width: 700px;
       margin: 20px auto;
-      color: #1F055F;
       font-size: 22px;
     }
     .btn {
@@ -58,21 +71,45 @@
       border-radius: 30px;
     }
     .carousel {
+      margin-top: 15px;
+      width: 100%;
       display: flex;
       overflow-x: auto;
-      gap: 20px;
-      padding: 20px;
-      background: #fafafa;
     }
-    .carousel img {
-      height: 100px;
-      border-radius: 8px;
+    .carousel::-webkit-scrollbar{
+      display: none;
+    }
+    .group{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1em;
+      animation: spin 30s infinite linear;
+      padding-right: 1em;
+    }
+    .card{
+      flex: 0 0 5em;
+      height: 3em;
+      padding: 1em;
+      font-size: 3rem;
+      border-radius: .2em;
+      text-align: center;
+      align-content: center;
+    }
+    .card img{
+      border-radius: .5em;
+    }
+    @keyframes spin{
+      from{translate: 0;}
+      to{translate: -100%;}
     }
     .sobre{
       display: flex;
       align-items: center;
       justify-content: right;
-      background-image: url('img/onda-fundo.png');
+      background: 
+       linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.1)),
+       url('img/onda-fundo.png');
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -80,6 +117,7 @@
     .sobre img{
        width: 45%;
        margin-left: 5%;
+       border-bottom-left-radius: 5%;
     }
     .sobre h2{
       font-size: 35px;
@@ -87,6 +125,81 @@
     }
     .sobre p{
       max-width: 700px;
-      color: #1F055F;
       font-size: 22px;
     }
+    .container-card{
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+    .imagem{
+      width: 30%;
+    }
+    .carD h3{
+      color:#1F055F;
+    }
+    .carD p{
+      color: #1F055F ;
+      padding-left: 20%;
+      padding-right: 20%;
+    }
+    .formulario{
+      padding-left: -0;
+      padding-right: 10%;
+       background: 
+       linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.1)),
+       url('img/fundo-ondas-coloridas-design-moderno.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content:center;
+      }
+      .formulario img{
+        width: 28%;
+      }
+      form {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px auto;
+}
+#caixa{
+  background-color: rgba(9, 9, 24, 0.2);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: inset;
+    text-align: center;
+    width: 300px;
+    backdrop-filter: blur(8px);
+}
+input, textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.cor{
+  font-size: 20px;
+  color:#FFBE01;
+  text-align: left;
+  font-weight: 500;
+}
+button {
+  background-color:#FFBE01 ;
+  border: none;
+  padding: 10px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 30px;
+  ;
+}
+
+button:hover {
+  background-color: #1F055F;
+}
