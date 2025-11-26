@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Impacta</title>
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <!--Header-->
@@ -34,12 +34,47 @@
       <a href="#" class="btn">Cadastre-se</a>
    </div>
   </section>
-<!--Carrrousel-->
+<!--Carrossel-->
   <section class="carousel">
-    <img src="img1.png" alt="Parceiro 1">
-    <img src="img2.png" alt="Parceiro 2">
-    <img src="img3.png" alt="Parceiro 3">
-    <img src="img4.png" alt="Parceiro 4">
+    <div class="group">
+      <div class="card">
+        <img src="img/abc.png" alt="">
+      </div>
+      <div class="card">
+        <img src="img/aldeias.png" alt="">
+      </div>
+      <div class="card">
+        <img src="img/amigos.jpg" alt="">
+      </div>
+      <div class="card">
+        <img src="img/aprender.png" alt="">
+      </div>
+      <div class="card">
+        <img src="img/dobem.jpg" alt="">
+      </div>
+      <div class="card">
+        <img src="img/farolnaquebrada.png" alt="">
+      </div>
+    </div>  
+     <div aria-hidden class ="group">
+      <div class="card">
+        <img src="img/abc.png" alt="">
+      </div>
+      <div class="card">
+        <img src="img/aldeias.png" alt="">
+      </div>
+      <div class="card">
+        <img src="img/amigos.jpg" alt="">
+      </div>
+      <div class="card">
+        <img src="img/aprender.png" alt="">
+      </div>
+      <div class="card">
+        <img src="img/dobem.jpg" alt="">
+      </div>
+      <div class="card">
+        <img src="img/farolnaquebrada.png" alt="">
+      </div>  
   </section>
 <!--Sessão sobre-->
   <section class="sobre">
@@ -55,6 +90,45 @@ Aqui, você faz parte de uma comunidade comprometida em fazer o bem, onde cada c
 Juntos, construímos uma rede de solidariedade que cresce a cada conexão.</p>
     </div>
     <img src="img/profissionais-saude-sucesso-colaboracao.webp" alt="">
+  </section>
+  <!--Passo a passo-->
+  <section class="conta">
+    <h2>Como abrir <b>sua conta</b></h2>
+    <div class="container-card">
+      <div class="carD">
+        <img class="imagem" src="img/icone-computador-tecnologia-monitor.webp" alt="">
+        <h3>Passo 1: Acesse o site</h3>
+        <p>clique em “Quero fazer parter” para iniciar o processo de criação da sua conta.</p>
+      </div>
+      <div class="carD">
+         <img class="imagem" src="img/icone-formulario-registro-cadastro.webp" alt="">
+        <h3>Passo 2: Preencha seus dados</h3>
+        <p>Informe suas informações básicas, como nome, e-mail, CPF e telefone, e crie uma senha de acesso segura.</p>
+      </div>
+      <div class="carD">
+         <img class="imagem" src="img/icone-check-validacao-sucesso.webp" alt=""style="width: 26%;">
+        <h3>Passo 3: Confirme o cadastro</h3>
+        <p>Verifique seu e-mail ou SMS para confirmar o cadastro e pronto! Agora você já pode acessar e usar todos os recursos da plataforma.</p>
+      </div>
+    </div>
+  </section>
+  <!--Formulário-->
+  <section class="formulario">
+    <img src="img/mulher-sorrindo-chamada-telefone-oculos.webp" alt="moça sorrindo ao telefone.">
+    <div id = "caixa" class="form">
+     <form action="#" method="POST">
+  <label for="nome"class="cor">Nome:</label>
+  <input type="text" id="nome" name="nome" required>
+
+  <label for="email" class="cor">E-mail:</label>
+  <input type="email" id="email" name="email" required>
+
+  <label for="msg"class="cor">Mensagem:</label>
+  <textarea id="msg" name="mensagem" required></textarea>
+
+  <button type="submit">Enviar</button>
+</form>
+   </div>
   </section>
 </body>
 </html>
