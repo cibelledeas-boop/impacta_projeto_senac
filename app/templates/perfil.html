@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil | Impacta Social</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
+</head>
+<body>
+  <header>
+    <a href="{{ url_for('feed') }}"><h1>Impacta Social</h1></a>
+    <nav>
+      <a href="{{ url_for('feed') }}">Feed</a> |
+      <a href="{{ url_for('perfil') }}">Perfil</a> |
+      <a href="{{ url_for('direct') }}">Direct</a> |
+      <a href="{{ url_for('landing') }}">Landing</a>
+    </nav>
+  </header>
+  <main class="perfil-container">
+    <section class="perfil-info">
+      <img src="{{ url_for('static', filename='img/img_feed/meuAvatar (1).png') }}" alt="Avatar" class="perfil-avatar">
+      <div>
+        <h2>@usuario_exemplo</h2>
+        <p>Bio do usuário. Aqui vai uma breve descrição.</p>
+        <button>Editar Perfil</button>
+      </div>
+    </section>
+    <section class="perfil-posts">
+      <h3>Publicações</h3>
+      <div class="posts-grid">
+        <div class="post-item">
+          <img src="{{ url_for('static', filename='img/img_feed/7101122.jpg') }}" alt="Post">
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Direct | Impacta Social</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/direct.css') }}">
+</head>
+<body>
+  <header>
+    <a href="{{ url_for('feed') }}"><h1>Mensagens Diretas</h1></a>
+    <nav>
+      <a href="{{ url_for('feed') }}">Feed</a> |
+      <a href="{{ url_for('perfil') }}">Perfil</a> |
+      <a href="{{ url_for('direct') }}">Direct</a> |
+      <a href="{{ url_for('landing') }}">Landing</a>
+    </nav>
+  </header>
+  <main class="direct-container">
+    <aside class="conversas-lista">
+      <h2>Conversas</h2>
+      <ul>
+        <li class="conversa-ativa">@amigo1</li>
+        <li>@amigo2</li>
+        <!-- Adicione mais contatos -->
+      </ul>
+    </aside>
+    <section class="chat-area">
+      <div class="chat-mensagens">
+        <div class="mensagem recebida">
+          <span>@amigo1:</span> Olá!
+        </div>
+        <div class="mensagem enviada">
+          <span>Você:</span> Oi, tudo bem?
+        </div>
+        <!-- Mais mensagens -->
+      </div>
+      <form class="chat-input">
+        <input type="text" placeholder="Digite uma mensagem...">
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
