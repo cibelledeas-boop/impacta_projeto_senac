@@ -1,12 +1,253 @@
-body { font-family: 'Montserrat', sans-serif; background: #f7f7fb; margin: 0; }
-header { background: #fff; padding: 18px 0; text-align: center; box-shadow: 0 1px 8px #e5e7eb; }
-.perfil-container { max-width: 900px; margin: 32px auto; background: #fff; border-radius: 18px; box-shadow: 0 2px 16px #e5e7eb; padding: 32px; }
-.perfil-info { display: flex; align-items: center; gap: 32px; margin-bottom: 32px; }
-.perfil-avatar { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; border: 3px solid #5acbff; }
-.perfil-info h2 { margin: 0 0 8px 0; }
-.perfil-info p { color: #6b7280; margin: 0 0 12px 0; }
-.perfil-info button { background: #5acbff; color: #fff; border: none; border-radius: 8px; padding: 8px 18px; cursor: pointer; font-weight: 600; }
-.perfil-posts h3 { margin-bottom: 18px; }
-.posts-grid { display: flex; flex-wrap: wrap; gap: 18px; }
-.post-item { width: 160px; height: 160px; border-radius: 12px; overflow: hidden; background: #f1f5f9; display: flex; align-items: center; justify-content: center; }
-.post-item img { width: 100%; height: 100%; object-fit: cover; }
+/* ------------------------------------------------------ */
+/* RESET / BASE */
+/* ------------------------------------------------------ */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #f7f7fb;
+  margin: 0;
+  color: #111827;
+}
+
+/* ------------------------------------------------------ */
+/* MENU LATERAL (estilo Instagram) */
+/* ------------------------------------------------------ */
+.logo-area {
+  min-width: 160px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo {
+  width: 180px;
+  padding: 10px
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.sidebar h1 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Foto pequena + nome no menu */
+.profile-small {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-small img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #5acbff;
+}
+
+.profile-small span {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Links do menu lateral */
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.sidebar nav a {
+  text-decoration: none;
+  font-size: 16px;
+  color: #111827;
+  padding: 8px;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.sidebar nav a:hover {
+  background: #f3f4f6;
+}
+
+/* Empurra a página principal para a direita */
+.perfil-container {
+  margin-left: 260px !important;
+}
+
+/* ------------------------------------------------------ */
+/* PERFIL (avatar, nome, bio) */
+/* ------------------------------------------------------ */
+.perfil-container {
+  max-width: 900px;
+  margin: 32px auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px #e5e7eb;
+  padding: 32px;
+}
+
+.perfil-info {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 32px;
+}
+
+/* Foto grande do perfil */
+.perfil-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #5acbff;
+  flex-shrink: 0;
+}
+
+.perfil-info > div {
+  min-width: 0;
+}
+
+.perfil-info h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* Botão Editar Perfil */
+.perfil-info button {
+  background: transparent;
+  border: 1px solid #dbdbdb;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.perfil-info button:hover {
+  background: #fafafa;
+}
+
+/* ------------------------------------------------------ */
+/* STATS (lado a lado, igual Instagram) */
+/* ------------------------------------------------------ */
+.stats {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 12px 0;
+}
+
+.stats li {
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.stats li strong {
+  display: inline-block;
+  font-size: 17px;
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+/* ------------------------------------------------------ */
+/* BIO */
+/* ------------------------------------------------------ */
+.perfil-info p {
+  color: #6b7280;
+  margin: 0 0 12px 0;
+  font-size: 14.5px;
+}
+
+/* ------------------------------------------------------ */
+/* POSTS GRID */
+/* ------------------------------------------------------ */
+.perfil-posts h3 {
+  margin: 0 0 18px 0;
+  font-size: 14px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.post-item {
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.post-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ------------------------------------------------------ */
+/* RESPONSIVO */
+/* ------------------------------------------------------ */
+@media (max-width: 720px) {
+  .sidebar {
+    width: 90px;
+    padding: 18px;
+  }
+
+  .sidebar h1 {
+    font-size: 16px;
+  }
+
+  .profile-small span {
+    display: none;
+  }
+
+  .sidebar nav a {
+    font-size: 0;
+    height: 40px;
+  }
+
+  .perfil-container {
+    margin-left: 120px !important;
+  }
+
+  .perfil-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .stats {
+    justify-content: center;
+  }
+
+  .posts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
