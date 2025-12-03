@@ -1,9 +1,8 @@
 // IMPACTA - Script principal
 
 document.addEventListener("DOMContentLoaded", () => {
-    // =====================
-    // 🔔 ABA FLUTUANTE DE NOTIFICAÇÕES
-    // =====================
+  
+    // ABA FLUTUANTE DE NOTIFICAÇÕES
     const notificacoesBtn = document.getElementById("notificacoes-btn");
     const notificacoesBox = document.getElementById("notificacoes-box");
     const closeNotificacoes = document.getElementById("close-notificacoes");
@@ -20,9 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         notificacoesBtn.style.display = "inline-flex";
       };
     }
-  // =====================
-  // ❤️ BOTÃO LIKE
-  // =====================
+//botão like
   const likeButtons = document.querySelectorAll(".like-btn");
 
   likeButtons.forEach((btn) => {
@@ -41,9 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // =====================
-  // 🟦 BOTÃO CRIAR POST (MODAL)
-  // =====================
   const overlay = document.getElementById("infoOverlay");
   const abrir = document.getElementById("abrirInfo");
   const fechar = document.getElementById("fecharInfo");
@@ -67,15 +61,14 @@ document.addEventListener("DOMContentLoaded", () => {
       overlay.style.display = "none";
       document.body.classList.remove("no-scroll");
     }
-  };
+  }
 
-  // =====================
+
   // Alternar botão Entrar/Direct (simulação de login)
-  // =====================
+  
   const btnEntrar = document.getElementById("btn-entrar");
   const btnDirect = document.getElementById("btn-direct");
 
-  // Simulação: usuário está logado (troque para false para ver o botão Entrar)
   const usuarioLogado = true;
 
   if (btnEntrar && btnDirect) {
@@ -91,30 +84,25 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  // =====================
+
   // 💬 BOTÃO FLUTUANTE CHATBOT
-  // =====================
   const chatbotBtn = document.getElementById("chatbot-float-btn");
   const chatbotBox = document.getElementById("chatbot-box");
   const closeChatbot = document.getElementById("close-chatbot");
 
   if (chatbotBtn && chatbotBox) {
     chatbotBtn.onclick = () => {
-      chatbotBox.style.display = "flex";
-      chatbotBtn.style.display = "none";
+      chatbotBox.classList.add("active");
     };
   }
   if (closeChatbot && chatbotBox && chatbotBtn) {
     closeChatbot.onclick = () => {
-      chatbotBox.style.display = "none";
-      chatbotBtn.style.display = "flex";
+      chatbotBox.classList.remove("active");
     };
   }
 });
 
-// =====================
-// ❤️ Coração flutuante
-// =====================
+
 function createFloatingHeart(button) {
   const heart = document.createElement("span");
   heart.textContent = "❤️";
@@ -125,4 +113,39 @@ function createFloatingHeart(button) {
     heart.remove();
   }, 800);
 }
+
+//Leaflet + OSM (Mapa Pontos de Coleta) 
+window.addEventListener('DOMContentLoaded', function() {
+  if (document.getElementById('mapa-coleta') && window.L) {
+    var map = L.map('mapa-coleta').setView([-15.793889, -47.882778], 12); // Brasília
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+    var pontos = [
+      {lat: -15.793889, lng: -47.882778, nome: 'Praça dos Três Poderes'},
+      {lat: -15.800000, lng: -47.860000, nome: 'Parque da Cidade'},
+      {lat: -15.780000, lng: -47.900000, nome: 'Lago Sul'},
+      {lat: -15.820000, lng: -47.950000, nome: 'Taguatinga'},
+      {lat: -15.730000, lng: -47.890000, nome: 'Asa Norte'}
+    ];
+    pontos.forEach(function(ponto) {
+      L.marker([ponto.lat, ponto.lng]).addTo(map)
+        .bindPopup(ponto.nome);
+    });
+  }
+});
+
+//Validação de categoria obrigatória no post
+document.addEventListener('DOMContentLoaded', function() {
+  const postForm = document.getElementById('postForm');
+  if (postForm) {
+    postForm.addEventListener('submit', function(e) {
+      const categoriaSelecionada = document.querySelector('input[name="categoria"]:checked');
+      if (!categoriaSelecionada) {
+        alert('Selecione uma categoria: História, Campanha ou Item.');
+        e.preventDefault();
+      }
+    });
+  }
+});
 
