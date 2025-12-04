@@ -7,25 +7,14 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background: #f7f7fb;
   margin: 0;
-  color: #111827;
-}
-/*testeeeeeeeeee*/
-/* ------------------------------------------------------ */
-/* MENU LATERAL (estilo Instagram) */
-/* ------------------------------------------------------ */
-.logo-area {
-  min-width: 160px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.logo {
-  width: 180px;
-  padding: 10px
+  background: #fafafa;
+  color: #111;
 }
 
+/* ------------------------------------------------------ */
+/* SIDEBAR (seu menu lateral) */
+/* ------------------------------------------------------ */
 .sidebar {
   position: fixed;
   top: 0;
@@ -33,165 +22,150 @@ body {
   width: 240px;
   height: 100vh;
   background: #fff;
-  border-right: 1px solid #e5e7eb;
+  border-right: 1px solid #dbdbdb;
   padding: 22px 18px;
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 30px;
 }
 
-.sidebar h1 {
-  font-size: 22px;
-  margin: 0;
-  font-weight: 700;
-  color: #111827;
+.logo {
+  width: 160px;
+  margin-bottom: 10px;
 }
 
-/* Foto pequena + nome no menu */
-.profile-small {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.profile-small img {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #5acbff;
-}
-
-.profile-small span {
-  font-size: 15px;
-  font-weight: 600;
-}
-
-/* Links do menu lateral */
 .sidebar nav {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-top: 10px;
+  gap: 16px;
 }
 
 .sidebar nav a {
   text-decoration: none;
   font-size: 16px;
-  color: #111827;
-  padding: 8px;
-  border-radius: 10px;
-  font-weight: 500;
-  transition: background 0.2s;
+  color: #111;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background .2s;
 }
 
 .sidebar nav a:hover {
-  background: #f3f4f6;
-}
-
-/* Empurra a página principal para a direita */
-.perfil-container {
-  margin-left: 260px !important;
+  background: #f1f1f1;
 }
 
 /* ------------------------------------------------------ */
-/* PERFIL (avatar, nome, bio) */
+/* PERFIL CONTAINER (igual Instagram) */
 /* ------------------------------------------------------ */
 .perfil-container {
-  max-width: 900px;
-  margin: 32px auto;
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 16px #e5e7eb;
-  padding: 32px;
+  margin-left: 260px;      /* espaço da sidebar */
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* ------------------------------------------------------ */
+/* PERFIL INFO – IGUAL INSTAGRAM */
+/* ------------------------------------------------------ */
 .perfil-info {
   display: flex;
   align-items: center;
-  gap: 28px;
-  margin-bottom: 32px;
+  gap: 60px;               /* espaço típico do Instagram */
+  width: 100%;
+  max-width: 950px;
+  margin-bottom: 50px;
 }
 
-/* Foto grande do perfil */
+/* Foto grande — igual ao Instagram */
 .perfil-avatar {
-  width: 120px;
-  height: 120px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #5acbff;
+  border: 1px solid #dbdbdb;
   flex-shrink: 0;
 }
 
-.perfil-info > div {
-  min-width: 0;
-}
-
-.perfil-info h2 {
-  margin: 0;
-  font-size: 22px;
-  font-weight: 600;
-}
-
-/* Botão Editar Perfil */
-.perfil-info button {
-  background: transparent;
-  border: 1px solid #dbdbdb;
-  padding: 6px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  margin-top: 10px;
-}
-
-.perfil-info button:hover {
-  background: #fafafa;
-}
-
-/* ------------------------------------------------------ */
-/* STATS (lado a lado, igual Instagram) */
-/* ------------------------------------------------------ */
-.stats {
+/* Conteúdo textual ao lado da foto */
+.infos {
   display: flex;
-  gap: 28px;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Nome + botão embaixo — estilo Insta */
+.infos h2 {
+  font-size: 28px;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* Botão igual Instagram */
+.infos button {
+  width: fit-content;
+  background: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.infos button:hover {
+  background: #f1f1f1;
+}
+
+/* Stats (seguindo, seguidores...) — IGUAL INSTA */
+.stats {
   list-style: none;
+  display: flex;
+  gap: 40px;
   padding: 0;
-  margin: 8px 0 12px 0;
+  margin: 0;
 }
 
 .stats li {
-  font-size: 15px;
-  white-space: nowrap;
+  font-size: 16px;
 }
 
-.stats li strong {
-  display: inline-block;
-  font-size: 17px;
+.stats strong {
   font-weight: 700;
   margin-right: 6px;
 }
 
-/* ------------------------------------------------------ */
-/* BIO */
-/* ------------------------------------------------------ */
-.perfil-info p {
-  color: #6b7280;
-  margin: 0 0 12px 0;
-  font-size: 14.5px;
+/* Bio igual ao Instagram */
+.infos p {
+  font-size: 15px;
+  max-width: 350px;
+  line-height: 1.4;
 }
 
 /* ------------------------------------------------------ */
-/* POSTS GRID */
+/* POSTS — GRID IGUAL INSTAGRAM */
 /* ------------------------------------------------------ */
-.perfil-posts h3 {
-  margin: 0 0 18px 0;
-  font-size: 14px;
-  color: #6b7280;
-  text-transform: uppercase;
+.perfil-posts {
+  width: 100%;
+  max-width: 950px;
+}
+
+.posts-header {
+  border-bottom: 1px solid #efefef;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.posts-header h3 {
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: 1px;
-  text-align: center;
+  color: #555;
+  text-transform: uppercase;
 }
 
+/* Grade de 3 colunas */
 .posts-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -199,48 +173,34 @@ body {
 }
 
 .post-item {
-  width: 100%;
   aspect-ratio: 1/1;
   overflow: hidden;
-  background: #f1f5f9;
+  background: #eee;
 }
 
 .post-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
 /* ------------------------------------------------------ */
 /* RESPONSIVO */
 /* ------------------------------------------------------ */
-@media (max-width: 720px) {
+@media (max-width: 780px) {
   .sidebar {
     width: 90px;
-    padding: 18px;
-  }
-
-  .sidebar h1 {
-    font-size: 16px;
-  }
-
-  .profile-small span {
-    display: none;
-  }
-
-  .sidebar nav a {
-    font-size: 0;
-    height: 40px;
   }
 
   .perfil-container {
-    margin-left: 120px !important;
+    margin-left: 110px;
+    padding: 20px;
   }
 
   .perfil-info {
     flex-direction: column;
     text-align: center;
+    gap: 25px;
   }
 
   .stats {

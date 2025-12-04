@@ -5,6 +5,7 @@
   <title>Perfil | Impacta Social</title>
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/img_feed/simbolo-logo1.png') }}" sizes="192x192" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
  <header class="sidebar">
@@ -14,10 +15,10 @@
 
 
   <nav>
-    <a href="{{ url_for('feed') }}">Feed</a>
-    <a href="{{ url_for('perfil') }}">Perfil</a>
-    <a href="{{ url_for('direct') }}">Direct</a>
-    <a href="{{ url_for('landing') }}">Landing</a>
+    <a href="{{ url_for('feed') }}"><strong>Feed</strong></a>
+    <a href="{{ url_for('perfil') }}"><strong>Perfil</strong></a>
+    <a href="{{ url_for('direct') }}"><strong>Direct</strong></a>
+    <a href="{{ url_for('landing') }}"><strong>Landing</strong></a>
   </nav>
 
 </header>
@@ -28,7 +29,7 @@
   <main class="perfil-container">
     <section class="perfil-info">
       <img src="{{ url_for('static', filename='img/img_feed/sorrindo-jovem-etnico-femininas-em-t-shirt-ligado-experiencia-colorida.jpg') }}"  alt="Avatar" class="perfil-avatar">
-      <div>
+      <div class="infos">
         <h2>@Mariana.Silva</h2>
          <ul class="stats">
           <li><strong>12</strong> publicações</li>
@@ -46,7 +47,8 @@
 
      <section class="perfil-posts">
       <div class="posts-header">
-        <h3>Publicações</h3>
+        <i class="fa-solid fa-border-all"></i>
+        <h3><strong>Publicações</h3>
       </div>
 
       <div class="posts-grid">
