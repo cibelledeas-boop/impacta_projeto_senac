@@ -2,44 +2,98 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Direct | Impacta Social</title>
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/img_feed/simbolo-logo1.png') }}" sizes="192x192" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/direct.css') }}">
+  <title>Mensagens | Impacta Social</title>
+  <link rel="icon" type="image/png"
+        href="{{ url_for('static', filename='img/img_feed/impactaimg.jpg') }}">
+  <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/direct.css') }}">
 </head>
+
 <body>
-  <header>
-    <a href="{{ url_for('feed') }}"><h1>Mensagens Diretas</h1></a>
-    <nav>
-      <a href="{{ url_for('feed') }}">Feed</a> |
-      <a href="{{ url_for('perfil') }}">Perfil</a> |
-      <a href="{{ url_for('direct') }}">Direct</a> |
-      <a href="{{ url_for('landing') }}">Landing</a>
-    </nav>
+
+  <!-- TOPO FIXO IGUAL TWITTER -->
+  <header class="top-bar">
+        <header class="topbar">
+    <div class="logo-area">
+      <img src="{{ url_for('static', filename='img/img_feed/impactaimg.jpg') }}" alt="Logo Impacta" class="logo" />
+    </div>
+
+    <div class="search" role="search">
+      <div class="search-input-wrapper">
+        <input id="searchInput" placeholder="Pesquise perfis, campanhas ou itens" aria-label="Buscar" />
+        <i data-lucide="search" class="search-icon"></i>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn primary" id="abrirInfo">
+        <i id="icon-plus" data-lucide="plus"></i>Criar Post
+      </button>
+     
   </header>
-  <main class="direct-container">
-    <aside class="conversas-lista">
-      <h2>Conversas</h2>
+
+  <main class="dm-container">
+
+    <!-- COLUNA DE LISTA DE CONVERSAS -->
+    <aside class="dm-lista">
+      <h2>Mensagens</h2>
+
       <ul>
-        <li class="conversa-ativa">@amigo1</li>
-        <li>@amigo2</li>
-        <!-- Adicione mais contatos -->
+        <li class="ativo">
+          <img class="avatar" src="{{ url_for('static', filename='img/img_feed/avatar_nati.png') }}">
+          <div class="info">
+            <strong>@amigo1</strong>
+            <p>Você: tudo bem?</p>
+          </div>
+        </li>
+
+        <li>
+          <img class="avatar" src="{{ url_for('static', filename='img/perfis/amigo1.jpg') }}">
+          <div class="info">
+            <strong>@amigo2</strong>
+            <p>Enviou uma foto</p>
+          </div>
+        </li>
+
+        <li>
+          <img class="avatar" src="{{ url_for('static', filename='img/perfis/amigo1.jpg') }}">
+          <div class="info">
+            <strong>@pessoa3</strong>
+            <p>Oii!</p>
+          </div>
+        </li>
       </ul>
     </aside>
-    <section class="chat-area">
-      <div class="chat-mensagens">
-        <div class="mensagem recebida">
-          <span>@amigo1:</span> Olá!
+
+    <!-- ÁREA DO CHAT -->
+    <section class="dm-chat">
+
+      <!-- Cabeçalho do chat (igual Twitter) -->
+      <div class="chat-header">
+        <img class="avatar" src="{{ url_for('static', filename='img/img_feed/avatar_nati.png') }}">
+        <div>
+          <h3>@amigo1</h3>
+          <span>Online agora</span>
         </div>
-        <div class="mensagem enviada">
-          <span>Você:</span> Oi, tudo bem?
-        </div>
-        <!-- Mais mensagens -->
       </div>
+
+      <!-- Mensagens -->
+      <div class="chat-mensagens">
+        <div class="msg recebida">Oii!</div>
+        <div class="msg enviada">Olá, tudo bem?</div>
+        <div class="msg recebida">Tudo sim 😊</div>
+        <div class="msg enviada">Que bom!</div>
+      </div>
+
+      <!-- Input -->
       <form class="chat-input">
-        <input type="text" placeholder="Digite uma mensagem...">
+        <input type="text" placeholder="Começar uma nova mensagem">
         <button type="submit">Enviar</button>
       </form>
+
     </section>
+
   </main>
+
 </body>
 </html>

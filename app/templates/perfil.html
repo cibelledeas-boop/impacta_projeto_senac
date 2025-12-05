@@ -3,61 +3,83 @@
 <head>
   <meta charset="UTF-8">
   <title>Perfil | Impacta Social</title>
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/img_feed/simbolo-logo1.png') }}" sizes="192x192" />
+
   <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
- <header class="sidebar">
+
+<!-- ========== SIDEBAR ========== -->
+<header class="sidebar">
   <div class="logo-area">
-      <img src="{{ url_for('static', filename='img/img_feed/impactaimg.jpg') }}" alt="Logo Impacta" class="logo" />
-    </div>
+    <img src="{{ url_for('static', filename='img/img_feed/impactaimg.jpg') }}" class="logo">
+  </div>
 
-
-  <nav>
-    <a href="{{ url_for('feed') }}"><strong>Feed</strong></a>
-    <a href="{{ url_for('perfil') }}"><strong>Perfil</strong></a>
-    <a href="{{ url_for('direct') }}"><strong>Direct</strong></a>
-    <a href="{{ url_for('landing') }}"><strong>Landing</strong></a>
+  <nav class="menu">
+    <a href="{{ url_for('feed') }}" class="menu-item"><i class="fa-solid fa-house"></i> <span>Feed</span></a>
+    <a href="{{ url_for('perfil') }}" class="menu-item active"><i class="fa-solid fa-user"></i> <span>Perfil</span></a>
+    <a href="{{ url_for('direct') }}" class="menu-item"><i class="fa-solid fa-paper-plane"></i> <span>Direct</span></a>
+    <a href="{{ url_for('landing') }}" class="menu-item"><i class="fa-solid fa-bullhorn"></i> <span>Landing</span></a>
+    <a href="{{ url_for('notificacoes') }}" class="menu-item"><i class="fa-solid fa-bell"></i> <span>Notificações</span></a>
   </nav>
-
 </header>
 
 
-<!--Perfil-->
+<!-- ========== PERFIL ========== -->
+<main class="perfil-container">
 
-  <main class="perfil-container">
-    <section class="perfil-info">
-      <img src="{{ url_for('static', filename='img/img_feed/sorrindo-jovem-etnico-femininas-em-t-shirt-ligado-experiencia-colorida.jpg') }}"  alt="Avatar" class="perfil-avatar">
-      <div class="infos">
-        <h2>@Mariana.Silva</h2>
-         <ul class="stats">
-          <li><strong>12</strong> publicações</li>
-          <li><strong>340</strong> seguidores</li>
-          <li><strong>280</strong> seguindo</li>
-        </ul>
-        <p>Impacto social • Educação • Comunidade “Servir é a forma mais verdadeira de liderar.”</p>
-        <button>Editar Perfil</button>
-         <ul class="stats">
-        </ul>
+  <section class="perfil-info">
+    <img src="{{ url_for('static', filename='img/img_feed/sorrindo-jovem-etnico-femininas-em-t-shirt-ligado-experiencia-colorida.jpg') }}"
+         class="perfil-avatar">
+
+    <div class="infos">
+      <h2 id="nome-perfil">@Mariana.Silva</h2>
+
+      <ul class="stats">
+        <li><strong>12</strong> publicações</li>
+        <li><strong>340</strong> seguidores</li>
+        <li><strong>280</strong> seguindo</li>
+      </ul>
+
+      <p id="bio-perfil">
+        Impacto social • Educação • Comunidade <br>
+        “Servir é a forma mais verdadeira de liderar.”
+      </p>
+
+      <!-- BOTÃO PARA ABRIR O POPUP -->
+      <button class="edit-btn" id="open-edit">Editar Perfil</button>
+    </div>
+  </section>
+
+
+
+
+  <!-- PUBLICAÇÕES -->
+  <section class="perfil-posts">
+    <div class="posts-header">
+      <i class="fa-solid fa-border-all"></i>
+      <h3><strong>Publicações</strong></h3>
+    </div>
+
+    <!-- GRADE DE POSTS CORRIGIDA -->
+    <div class="posts-grid">
+
+      <div class="post-item">
+        <img src="{{ url_for('static', filename='img/img_feed/7101122.jpg') }}">
       </div>
-    </section>
 
-    <!--POSTS-->
-
-     <section class="perfil-posts">
-      <div class="posts-header">
-        <i class="fa-solid fa-border-all"></i>
-        <h3><strong>Publicações</h3>
+      <!-- pode acrescentar infinitos posts assim: -->
+      <!--
+      <div class="post-item">
+        <img src="{{ url_for('static', filename='img/img_feed/FOTO.jpg') }}">
       </div>
+      -->
 
-      <div class="posts-grid">
-        <div class="post-item">
-          <img src="{{ url_for('static', filename='img/img_feed/7101122.jpg') }}" alt="Post">
-        </div>
-      </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+</main>
+
 </body>
 </html>
