@@ -1,99 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Mensagens | Impacta Social</title>
-  <link rel="icon" type="image/png"
-        href="{{ url_for('static', filename='img/img_feed/impactaimg.jpg') }}">
-  <link rel="stylesheet"
-        href="{{ url_for('static', filename='css/direct.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Mensagens | Sistema Corporativo</title> 
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/direct.css') }}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
 <body>
 
-  <!-- TOPO FIXO IGUAL TWITTER -->
-  <header class="top-bar">
-        <header class="topbar">
-    <div class="logo-area">
-      <img src="{{ url_for('static', filename='img/img_feed/impactaimg.jpg') }}" alt="Logo Impacta" class="logo" />
-    </div>
-
-    <div class="search" role="search">
-      <div class="search-input-wrapper">
-        <input id="searchInput" placeholder="Pesquise perfis, campanhas ou itens" aria-label="Buscar" />
-        <i data-lucide="search" class="search-icon"></i>
-      </div>
-    </div>
-
-    <div class="actions">
-      <button class="btn primary" id="abrirInfo">
-        <i id="icon-plus" data-lucide="plus"></i>Criar Post
-      </button>
-     
-  </header>
-
-  <main class="dm-container">
-
-    <!-- COLUNA DE LISTA DE CONVERSAS -->
-    <aside class="dm-lista">
-      <h2>Mensagens</h2>
-
-      <ul>
-        <li class="ativo">
-          <img class="avatar" src="{{ url_for('static', filename='img/img_feed/avatar_nati.png') }}">
-          <div class="info">
-            <strong>@amigo1</strong>
-            <p>Você: tudo bem?</p>
-          </div>
-        </li>
-
-        <li>
-          <img class="avatar" src="{{ url_for('static', filename='img/perfis/amigo1.jpg') }}">
-          <div class="info">
-            <strong>@amigo2</strong>
-            <p>Enviou uma foto</p>
-          </div>
-        </li>
-
-        <li>
-          <img class="avatar" src="{{ url_for('static', filename='img/perfis/amigo1.jpg') }}">
-          <div class="info">
-            <strong>@pessoa3</strong>
-            <p>Oii!</p>
-          </div>
-        </li>
-      </ul>
-    </aside>
-
-    <!-- ÁREA DO CHAT -->
-    <section class="dm-chat">
-
-      <!-- Cabeçalho do chat (igual Twitter) -->
-      <div class="chat-header">
-        <img class="avatar" src="{{ url_for('static', filename='img/img_feed/avatar_nati.png') }}">
-        <div>
-          <h3>@amigo1</h3>
-          <span>Online agora</span>
+    <header class="topbar">
+        <div class="logo-area">
+            <img src="/static/img/img_feed/impactaimg.jpg" alt="Logo da Empresa" class="logo"> 
         </div>
-      </div>
 
-      <!-- Mensagens -->
-      <div class="chat-mensagens">
-        <div class="msg recebida">Oii!</div>
-        <div class="msg enviada">Olá, tudo bem?</div>
-        <div class="msg recebida">Tudo sim 😊</div>
-        <div class="msg enviada">Que bom!</div>
-      </div>
+        <div class="search">
+            <div class="search-input-wrapper">
+                <input type="text" id="searchInput" placeholder="Pesquisar..." />
+                <i class="fas fa-search search-icon"></i> 
+            </div>
+        </div>
 
-      <!-- Input -->
-      <form class="chat-input">
-        <input type="text" placeholder="Começar uma nova mensagem">
-        <button type="submit">Enviar</button>
-      </form>
+        <div class="actions">
+            <button class="btn primary" id="abrirInfo">
+                <i class="fa-solid fa-plus"></i>
+                Adicionar Post
+            </button>
+        </div>
+    </header>
 
-    </section>
+    <div class="main-layout">
 
-  </main>
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/feed">
+                            <i class="fa-solid fa-globe"></i>
+                            <span>Feed</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/landing">
+                            <i class="fa-solid fa-home"></i>
+                            <span>Landing Page</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/notificacoes">
+                            <i class="fa-solid fa-bell"></i>
+                            <span>Notificações</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/perfil">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="content-area">
+
+            <div class="dm-container">
+                
+                <div class="dm-lista">
+                    <h2>Mensagens</h2>
+                    
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Pesquisar conversa...">
+                    </div>
+                    
+                    <ul>
+                        <li class="ativo">
+                            <div class="avatar"></div> 
+                            <div class="info">
+                                <strong>@amigolegal</strong>
+                                <p>Opa! Vamos conversar?</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="avatar"></div>
+                            <div class="info">
+                                <strong>@impactasocial</strong>
+                                <p>Obrigado por participar!</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="avatar"></div>
+                            <div class="info">
+                                <strong>@clienteimportante_empresa</strong>
+                                <p>Mensagem longa de teste aqui...</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="dm-chat">
+                    <div class="chat-header">
+                        <div class="avatar grande"></div>
+                        <div>
+                            <h3>@amigolegal</h3> 
+                            <span>Ativo agora</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-mensagens">
+                        <div class="msg recebida">Clique em uma conversa para começar o chat!</div>
+                    </div>
+
+                    <form class="chat-input">
+                        <input type="text" placeholder="Escreva uma mensagem..." required>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+            </div>
+            
+        </div> </div> <script src="{{ url_for('static', filename='js/direct.js') }}"></script>
 
 </body>
 </html>
