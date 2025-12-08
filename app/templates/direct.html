@@ -1,45 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Direct | Impacta Social</title>
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/img_feed/simbolo-logo1.png') }}" sizes="192x192" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/direct.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Mensagens | Sistema Corporativo</title> 
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/direct.css') }}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
+
 <body>
-  <header>
-    <a href="{{ url_for('feed') }}"><h1>Mensagens Diretas</h1></a>
-    <nav>
-      <a href="{{ url_for('feed') }}">Feed</a> |
-      <a href="{{ url_for('perfil') }}">Perfil</a> |
-      <a href="{{ url_for('direct') }}">Direct</a> |
-      <a href="{{ url_for('landing') }}">Landing</a>
-    </nav>
-  </header>
-  <main class="direct-container">
-    <aside class="conversas-lista">
-      <h2>Conversas</h2>
-      <ul>
-        <li class="conversa-ativa">@amigo1</li>
-        <li>@amigo2</li>
-        <!-- Adicione mais contatos -->
-      </ul>
-    </aside>
-    <section class="chat-area">
-      <div class="chat-mensagens">
-        <div class="mensagem recebida">
-          <span>@amigo1:</span> Olá!
+
+    <header class="topbar">
+        <div class="logo-area">
+            <img src="/static/img/img_feed/impactaimg.jpg" alt="Logo da Empresa" class="logo"> 
         </div>
-        <div class="mensagem enviada">
-          <span>Você:</span> Oi, tudo bem?
+
+        <div class="search">
+            <div class="search-input-wrapper">
+                <input type="text" id="searchInput" placeholder="Pesquisar..." />
+                <i class="fas fa-search search-icon"></i> 
+            </div>
         </div>
-        <!-- Mais mensagens -->
-      </div>
-      <form class="chat-input">
-        <input type="text" placeholder="Digite uma mensagem...">
-        <button type="submit">Enviar</button>
-      </form>
-    </section>
-  </main>
+
+        <div class="actions">
+            <button class="btn primary" id="abrirInfo">
+                <i class="fa-solid fa-plus"></i>
+                Adicionar Post
+            </button>
+        </div>
+    </header>
+
+    <div class="main-layout">
+
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/feed">
+                            <i class="fa-solid fa-globe"></i>
+                            <span>Feed</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/landing">
+                            <i class="fa-solid fa-home"></i>
+                            <span>Landing Page</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/notificacoes">
+                            <i class="fa-solid fa-bell"></i>
+                            <span>Notificações</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/perfil">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="content-area">
+
+            <div class="dm-container">
+                
+                <div class="dm-lista">
+                    <h2>Mensagens</h2>
+                    
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Pesquisar conversa...">
+                    </div>
+                    
+                    <ul>
+                        <li class="ativo">
+                            <div class="avatar"></div> 
+                            <div class="info">
+                                <strong>@amigolegal</strong>
+                                <p>Opa! Vamos conversar?</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="avatar"></div>
+                            <div class="info">
+                                <strong>@impactasocial</strong>
+                                <p>Obrigado por participar!</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="avatar"></div>
+                            <div class="info">
+                                <strong>@clienteimportante_empresa</strong>
+                                <p>Mensagem longa de teste aqui...</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="dm-chat">
+                    <div class="chat-header">
+                        <div class="avatar grande"></div>
+                        <div>
+                            <h3>@amigolegal</h3> 
+                            <span>Ativo agora</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-mensagens">
+                        <div class="msg recebida">Clique em uma conversa para começar o chat!</div>
+                    </div>
+
+                    <form class="chat-input">
+                        <input type="text" placeholder="Escreva uma mensagem..." required>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+            </div>
+            
+        </div> </div> <script src="{{ url_for('static', filename='js/direct.js') }}"></script>
+
 </body>
 </html>

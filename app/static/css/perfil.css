@@ -1,253 +1,644 @@
+/* -------------------------------------------------------- */
+/* VARIÁVEIS DE COR (TOKENS) */
+/* -------------------------------------------------------- */
+:root {
+    /* Primary */
+    --color-primary-700: #2b3a73; /* Links mobile */
+    --color-primary-600: #264d9e; /* Links gerais, ícones */
+    --color-primary-500: #1f4888; /* Hover mobile */
+    --color-primary-400: #5074d9; /* Gradiente início (botão) */
+    --color-primary-300: #2d4fb8; /* Gradiente final (botão) */
+    --color-primary-200: #7189d2; 
+    --color-primary-100: #8888cc; 
+
+    /* Secondary */
+    --color-secondary-200: #7188d2;
+    --color-secondary-100: #266c82;
+
+    /* Surface */
+    --surface-50: #eaedff; /* body */
+    --surface-100: #f2f7fa; /* menus, cards */
+    --surface-150: #f5f8ff; /* dropdown, input background */
+    --surface-200: #f6f9ff; /* background branco-azulado (ativos) */
+    --surface-300: #f2f5fa; /* variações UI */
+
+    /* Text */
+    --text-900: #161617; /* Títulos, Texto Principal */
+    --text-700: #353436;
+    --text-500: #666566; /* Texto Secundário/Inativo */
+    --text-300: #232224;
+
+    /* Icons & Border */
+    --icon-default: #a6a6a7;
+    --icon-hover: #264d9e; 
+    
+    /* Shadows (RGBA) */
+    --shadow-primary-10: rgba(80, 116, 217, 0.08);
+    --shadow-primary-dark-10: rgba(45, 79, 184, 0.07);
+    --shadow-neutral-6: rgba(180, 195, 230, 0.04);
+    --shadow-neutral-4: rgba(180, 195, 230, 0.02);
+
+    /* Outros */
+    --border-radius-base: 8px;
+    --border-radius-small: 6px;
+}
+
 /* ------------------------------------------------------ */
 /* RESET / BASE */
 /* ------------------------------------------------------ */
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  background: #f7f7fb;
-  margin: 0;
-  color: #111827;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    background: var(--surface-50);
+    color: var(--text-900); 
 }
-/*testeeeeeeeeee*/
+
 /* ------------------------------------------------------ */
-/* MENU LATERAL (estilo Instagram) */
+/* SIDEBAR – LARGURA RESTAURADA (240px) E BOTÃO 'CRIAR POST' */
 /* ------------------------------------------------------ */
-.logo-area {
-  min-width: 160px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.logo {
-  width: 180px;
-  padding: 10px
-}
-
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 240px;
-  height: 100vh;
-  background: #fff;
-  border-right: 1px solid #e5e7eb;
-  padding: 22px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 26px;
+.sidebar-minimal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px; 
+    height: 100vh;
+    background: #fff;
+    border-right: 1px solid var(--shadow-neutral-4);
+    padding: 22px 18px; 
+    display: flex;
+    flex-direction: column; /* Essencial para o posicionamento do botão */
+    gap: 30px;
+    box-shadow: var(--shadow-neutral-6);
 }
 
-.sidebar h1 {
-  font-size: 22px;
-  margin: 0;
-  font-weight: 700;
-  color: #111827;
+.logo-min {
+    width: 150px; 
+    margin: 0 auto 20px auto;
 }
 
-/* Foto pequena + nome no menu */
-.profile-small {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    flex-grow: 1; /* Empurra o botão 'Criar Post' para baixo */
 }
 
-.profile-small img {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #5acbff;
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 14px; 
+    padding: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text-700); 
+    font-size: 16px;
+    transition: 0.2s;
 }
 
-.profile-small span {
-  font-size: 15px;
-  font-weight: 600;
+.menu-item i {
+    font-size: 20px; 
+    color: var(--icon-default); 
 }
 
-/* Links do menu lateral */
-.sidebar nav {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-top: 10px;
+.menu-item span {
+    display: inline; 
 }
 
-.sidebar nav a {
-  text-decoration: none;
-  font-size: 16px;
-  color: #111827;
-  padding: 8px;
-  border-radius: 10px;
-  font-weight: 500;
-  transition: background 0.2s;
+.menu-item:hover {
+    background: var(--surface-100); 
 }
 
-.sidebar nav a:hover {
-  background: #f3f4f6;
+.menu-item:hover i {
+    color: var(--icon-hover);
 }
 
-/* Empurra a página principal para a direita */
+.menu-item.active {
+    font-weight: 600;
+    background: var(--surface-200); 
+    color: var(--color-primary-600); 
+}
+
+.menu-item.active i {
+    color: var(--color-primary-600);
+}
+
+/* NOVO BOTÃO DE CRIAR POST (Destaque Primário) */
+.btn-create-post {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    
+    background: linear-gradient(135deg, var(--color-primary-400), var(--color-primary-300));
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    
+    padding: 12px 15px;
+    margin: 10px 15px 20px 15px; 
+    border-radius: var(--border-radius-base);
+    transition: background 0.2s, box-shadow 0.2s;
+    
+    box-shadow: 0 4px 10px var(--shadow-primary-10);
+}
+
+.btn-create-post:hover {
+    background: var(--color-primary-500);
+    box-shadow: 0 4px 15px var(--shadow-primary-dark-10);
+}
+
+.btn-create-post i {
+    font-size: 1rem;
+    color: #fff; 
+}
+
+.btn-create-post span {
+    font-size: 1rem;
+}
+
+
+/* Mobile sidebar reduzida */
+@media (max-width: 780px) {
+    .sidebar-minimal {
+        width: 80px;
+        padding: 20px 10px;
+        align-items: center;
+    }
+
+    .menu-item span {
+        display: none; 
+    }
+
+    .menu-item i {
+        font-size: 24px; 
+    }
+
+    .logo-min {
+        width: 50px;
+    }
+    
+    /* Esconde o texto do botão 'Criar Post' em mobile */
+    .btn-create-post span {
+        display: none;
+    }
+    .btn-create-post {
+        width: 50px; /* Transforma em um botão quadrado (somente ícone) */
+        height: 50px;
+        border-radius: 50%; /* Torna-o circular */
+        padding: 0;
+        margin: 10px auto 20px auto;
+        gap: 0; /* Remove gap */
+    }
+}
+
+/* ------------------------------------------------------ */
+/* CONTAINER DO PERFIL */
+/* ------------------------------------------------------ */
 .perfil-container {
-  margin-left: 260px !important;
+    margin-left: 260px; /* Ajuste para a sidebar de 240px + 20px de margem */
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (max-width: 780px) {
+    .perfil-container {
+        margin-left: 95px; 
+        padding: 20px;
+    }
 }
 
 /* ------------------------------------------------------ */
-/* PERFIL (avatar, nome, bio) */
+/* INFO DO PERFIL */
 /* ------------------------------------------------------ */
-.perfil-container {
-  max-width: 900px;
-  margin: 32px auto;
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 16px #e5e7eb;
-  padding: 32px;
-}
-
 .perfil-info {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    width: 100%;
+    max-width: 950px;
+    margin-bottom: 50px;
 }
 
-/* Foto grande do perfil */
 .perfil-avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #5acbff;
-  flex-shrink: 0;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--surface-100); 
+    box-shadow: var(--shadow-primary-6);
 }
 
-.perfil-info > div {
-  min-width: 0;
+.infos {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.perfil-info h2 {
-  margin: 0;
-  font-size: 22px;
-  font-weight: 600;
+.infos h2 {
+    font-size: 28px;
+    font-weight: 300;
+    margin: 0;
+    color: var(--text-900);
 }
 
-/* Botão Editar Perfil */
-.perfil-info button {
-  background: transparent;
-  border: 1px solid #dbdbdb;
-  padding: 6px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  margin-top: 10px;
+/* Botão de editar */
+.edit-btn {
+    width: fit-content;
+    background: var(--surface-100);
+    border: 1px solid var(--shadow-neutral-4);
+    border-radius: 8px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-700);
+    transition: background .2s, border-color .2s;
 }
 
-.perfil-info button:hover {
-  background: #fafafa;
+.edit-btn:hover {
+    background: var(--surface-200);
+    border-color: var(--color-primary-200);
 }
 
-/* ------------------------------------------------------ */
-/* STATS (lado a lado, igual Instagram) */
-/* ------------------------------------------------------ */
+/* Estatísticas */
 .stats {
-  display: flex;
-  gap: 28px;
-  list-style: none;
-  padding: 0;
-  margin: 8px 0 12px 0;
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    padding: 0;
+    margin: 0;
 }
 
 .stats li {
-  font-size: 15px;
-  white-space: nowrap;
+    font-size: 16px;
+    color: var(--text-500);
 }
 
-.stats li strong {
-  display: inline-block;
-  font-size: 17px;
-  font-weight: 700;
-  margin-right: 6px;
+.stats strong {
+    margin-right: 6px;
+    font-weight: 700;
+    color: var(--text-900);
+}
+
+/* Bio */
+.infos p {
+    font-size: 15px;
+    max-width: 350px;
+    line-height: 1.4;
+    color: var(--text-300);
+}
+
+/* Mobile ajustes de info */
+@media (max-width: 780px) {
+    .perfil-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 25px;
+    }
+
+    .stats {
+        justify-content: center;
+    }
 }
 
 /* ------------------------------------------------------ */
-/* BIO */
+/* POPUP/MODAL DE EDIÇÃO (FUNCIONAL) */
 /* ------------------------------------------------------ */
-.perfil-info p {
-  color: #6b7280;
-  margin: 0 0 12px 0;
-  font-size: 14.5px;
+.popup-ig {
+    display: none; /* Inicia escondido (o JS muda para 'flex') */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.popup-card {
+    background: #fff;
+    width: 380px;
+    padding: 25px;
+    border-radius: 14px;
+    position: relative;
+    box-shadow: 0 5px 20px var(--shadow-primary-25, rgba(80, 130, 220, 0.25));
+    animation: popupFade .22s ease-out;
+}
+
+@keyframes popupFade {
+    from { opacity: 0; transform: scale(.93); }
+    to 	 { opacity: 1; transform: scale(1); }
+}
+
+.close-ig {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--text-500);
+}
+
+.titulo-ig {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: var(--text-700);
+}
+
+.edit-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.edit-avatar {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.change-photo {
+    color: var(--color-primary-600); 
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row label {
+    font-size: 13px;
+    color: var(--text-500);
+}
+
+.form-row input,
+.form-row textarea {
+    padding: 8px;
+    border: 1px solid var(--shadow-neutral-4);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-900);
+    background: var(--surface-150);
+}
+
+.form-row input:focus,
+.form-row textarea:focus {
+    outline: 2px solid var(--color-primary-200);
+    border-color: var(--color-primary-200);
+    background: #fff;
+}
+
+textarea {
+    resize: none;
+    height: 80px;
+}
+
+/* Botão Salvar (com gradiente) */
+.btn-salvar {
+    background: linear-gradient(135deg, var(--color-primary-400), var(--color-primary-300));
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.btn-salvar:hover {
+    opacity: 0.9;
 }
 
 /* ------------------------------------------------------ */
-/* POSTS GRID */
+/* POSTS – grade estilo Instagram */
 /* ------------------------------------------------------ */
-.perfil-posts h3 {
-  margin: 0 0 18px 0;
-  font-size: 14px;
-  color: #6b7280;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: center;
+.perfil-posts {
+    width: 100%;
+    max-width: 950px;
 }
 
+.posts-header {
+    border-bottom: 1px solid var(--shadow-neutral-4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
+.posts-header i {
+    font-size: 18px;
+    color: var(--icon-default);
+}
+
+.posts-header h3 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--text-500);
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* Grid de posts estilo Instagram */
 .posts-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
 }
 
 .post-item {
-  width: 100%;
-  aspect-ratio: 1/1;
-  overflow: hidden;
-  background: #f1f5f9;
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--surface-300);
 }
 
 .post-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Mobile – 2 colunas */
+@media (max-width: 780px) {
+    .posts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+/* ------------------------------------------------------ */
+/* 4. MODAL DE VISUALIZAÇÃO DE POST (VIEWER) */
+/* ------------------------------------------------------ */
+
+.post-card-viewer {
+    width: 900px; /* Largura maior para o viewer */
+    max-width: 90vw;
+    height: 600px;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+}
+
+.viewer-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.viewer-media {
+    flex: 2; /* Ocupa 2/3 do espaço */
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#viewer-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Garante que a imagem se ajuste sem cortar */
+}
+
+.viewer-details {
+    flex: 1; /* Ocupa 1/3 do espaço */
+    background: #fff;
+    border-left: 1px solid var(--surface-300);
+    display: flex;
+    flex-direction: column;
+}
+
+.viewer-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid var(--surface-300);
+}
+
+.viewer-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.viewer-header strong {
+    color: var(--text-900);
+    font-size: 0.95rem;
+}
+
+.viewer-comments {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+    font-size: 0.9rem;
+}
+
+.post-caption {
+    margin-bottom: 15px;
+    font-weight: 500;
+    color: var(--text-700);
+}
+
+.comment-item {
+    margin-bottom: 5px;
+}
+
+/* Área de Ações e Input */
+.viewer-actions {
+    padding: 10px 15px;
+    border-top: 1px solid var(--surface-300);
+    color: var(--text-500);
+}
+
+.viewer-actions i {
+    font-size: 1.5rem;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.viewer-input {
+    display: flex;
+    padding: 10px 15px;
+    border-top: 1px solid var(--surface-300);
+}
+
+.viewer-input input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 5px 0;
+    color: var(--text-900);
+    font-size: 0.9rem;
+}
+
+.viewer-input button {
+    background: none;
+    border: none;
+    color: var(--color-primary-600);
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.viewer-input button:hover {
+    opacity: 0.8;
 }
 
 /* ------------------------------------------------------ */
-/* RESPONSIVO */
+/* 5. MODAL DE CRIAÇÃO DE POST (CREATOR) */
 /* ------------------------------------------------------ */
-@media (max-width: 720px) {
-  .sidebar {
-    width: 90px;
-    padding: 18px;
-  }
 
-  .sidebar h1 {
-    font-size: 16px;
-  }
+.create-card {
+    width: 450px; /* Largura um pouco maior que o modal de edição */
+}
 
-  .profile-small span {
-    display: none;
-  }
-
-  .sidebar nav a {
-    font-size: 0;
-    height: 40px;
-  }
-
-  .perfil-container {
-    margin-left: 120px !important;
-  }
-
-  .perfil-info {
-    flex-direction: column;
+.media-upload-area {
     text-align: center;
-  }
+}
 
-  .stats {
-    justify-content: center;
-  }
+.upload-box {
+    border: 2px dashed var(--color-primary-200);
+    background: var(--surface-150);
+    padding: 30px;
+    border-radius: var(--border-radius-base);
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
 
-  .posts-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.upload-box:hover {
+    background: var(--surface-200);
+}
+
+.upload-box i {
+    font-size: 2.5rem;
+    color: var(--color-primary-600);
+    margin-bottom: 10px;
+}
+
+.upload-box p {
+    color: var(--text-500);
+    font-size: 0.9rem;
 }
