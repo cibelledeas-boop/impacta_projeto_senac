@@ -100,6 +100,92 @@ document.addEventListener("DOMContentLoaded", () => {
       chatbotBox.classList.remove("active");
     };
   }
+
+  // Função para abrir o formulário de criar post
+  const abrirInfo = document.getElementById("abrirInfo");
+  const infoOverlay = document.getElementById("infoOverlay");
+  const fecharInfo = document.getElementById("fecharInfo");
+
+  if (abrirInfo && infoOverlay) {
+    abrirInfo.onclick = () => {
+      infoOverlay.style.display = "flex";
+      document.body.classList.add("no-scroll");
+    };
+  }
+  if (fecharInfo && infoOverlay) {
+    fecharInfo.onclick = () => {
+      infoOverlay.style.display = "none";
+      document.body.classList.remove("no-scroll");
+    };
+  }
+  infoOverlay && (infoOverlay.onclick = (e) => {
+    if (e.target === infoOverlay) {
+      infoOverlay.style.display = "none";
+      document.body.classList.remove("no-scroll");
+    }
+  });
+
+
+  // Controle do campo de categoria no formulário de post
+  const categoriaRadios = document.querySelectorAll('input[name="categoria"]');
+  const categoriaInput = document.getElementById('categoriaInput');
+  if (categoriaRadios && categoriaInput) {
+    categoriaRadios.forEach(radio => {
+      radio.addEventListener('change', function() {
+        categoriaInput.value = this.value;
+      });
+      // Seleção inicial
+      if (radio.checked) {
+        categoriaInput.value = radio.value;
+      }
+    });
+  }
+
+
+  // Preview da imagem no formulário de post
+  const fotoInput = document.getElementById('foto');
+  if (fotoInput) {
+    fotoInput.addEventListener('change', function(event) {
+      const previewContainer = document.querySelector('.upload-container');
+      let previewImg = document.getElementById('preview-img');
+      if (!previewImg) {
+        previewImg = document.createElement('img');
+        previewImg.id = 'preview-img';
+        previewImg.style.maxWidth = '120px';
+        previewImg.style.maxHeight = '120px';
+        previewImg.style.display = 'block';
+        previewImg.style.marginTop = '10px';
+        previewContainer.appendChild(previewImg);
+      }
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewImg.src = e.target.result;
+          previewImg.alt = 'Prévia da imagem';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        previewImg.src = '';
+        previewImg.alt = '';
+      }
+    });
+  }
+
+  // Abrir/fechar aba de comentários (accordion)
+  document.querySelectorAll('.toggle-comments-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const postId = btn.getAttribute('data-post-id');
+      const commentsDiv = document.getElementById('comments-' + postId);
+      if (commentsDiv) {
+        if (commentsDiv.style.display === 'none' || commentsDiv.style.display === '') {
+          commentsDiv.style.display = 'block';
+        } else {
+          commentsDiv.style.display = 'none';
+        }
+      }
+    });
+  });
 });
 
 
@@ -148,4 +234,111 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// Curtir post via AJAX
+  document.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const postId = btn.getAttribute('data-post-id');
+      fetch(`/curtir/${postId}`, { method: 'POST' })
+        .then(res => {
+          if (res.ok) {
+            const countSpan = btn.querySelector('.count');
+            countSpan.textContent = parseInt(countSpan.textContent) + 1;
+            createFloatingHeart(btn);
+          }
+        });
+    });
+  });
+
+// Comentar post sem recarregar e atualizar comentários dinamicamente
+  document.querySelectorAll('.comment-form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const postId = form.getAttribute('data-post-id');
+      const input = form.querySelector('input[name="comentario"]');
+      const comentario = input.value.trim();
+      if (!comentario) return;
+      const formData = new FormData();
+      formData.append('comentario', comentario);
+      fetch(`/comentar/${postId}`, {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => {
+        if (res.ok) {
+          // Mensagem de confirmação
+          let msg = form.querySelector('.comment-success');
+          if (!msg) {
+            msg = document.createElement('span');
+            msg.className = 'comment-success';
+            msg.style.color = '#2ecc40';
+            msg.style.fontSize = '0.95em';
+            msg.style.marginLeft = '8px';
+            form.appendChild(msg);
+          }
+          msg.textContent = 'Comentário enviado!';
+          setTimeout(() => { msg.textContent = ''; }, 2000);
+          // Atualiza a página para mostrar o novo comentário
+          setTimeout(() => { window.location.reload(); }, 600);
+        }
+      });
+    });
+  });
+
+// Excluir post via AJAX
+  document.querySelectorAll('.delete-post-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (!confirm('Tem certeza que deseja excluir este post?')) return;
+      const postId = btn.getAttribute('data-post-id');
+      fetch(`/excluir/${postId}`, { method: 'POST' })
+        .then(res => {
+          if (res.ok) {
+            // Remove o post do DOM
+            const article = btn.closest('article.card');
+            if (article) article.remove();
+          }
+        });
+    });
+  });
+
+// Chatbot Gemini - integração frontend
+const chatbotInput = document.querySelector('.chatbot-input-area input[type="text"]');
+const chatbotForm = document.querySelector('.chatbot-input-area');
+const chatbotMessages = document.querySelector('.chatbot-messages');
+
+if (chatbotForm && chatbotInput && chatbotMessages) {
+  chatbotForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const userMsg = chatbotInput.value.trim();
+    if (!userMsg) return;
+    // Adiciona mensagem do usuário
+    const userDiv = document.createElement('div');
+    userDiv.className = 'chatbot-message chatbot-message-user';
+    userDiv.innerHTML = `<span>${userMsg}</span>`;
+    chatbotMessages.appendChild(userDiv);
+    chatbotInput.value = '';
+    // Chama backend Gemini
+    fetch('/chatbot', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userMsg })
+    })
+    .then(res => res.json())
+    .then(data => {
+      const botDiv = document.createElement('div');
+      botDiv.className = 'chatbot-message chatbot-message-bot';
+      botDiv.innerHTML = `<span>${data.response}</span>`;
+      chatbotMessages.appendChild(botDiv);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    })
+    .catch(() => {
+      const botDiv = document.createElement('div');
+      botDiv.className = 'chatbot-message chatbot-message-bot';
+      botDiv.innerHTML = `<span>Desculpe, houve um erro ao conectar à IA.</span>`;
+      chatbotMessages.appendChild(botDiv);
+    });
+  });
+}
 

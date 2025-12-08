@@ -13,7 +13,7 @@
 <body>
   <aside class="menu-lateral-esquerdo instagram-style">
     <nav class="menu-list">
-      <a href="#" class="menu-item"><i data-lucide="send"></i> <span>Mensagens</span><span class="badge">2</span></a>
+      <a href="#" class="menu-item"><i data-lucide="send"></i> <span>Mensagens</span></a>
       <a href="#" class="menu-item"><i data-lucide="heart"></i> <span>Notificações</span></a>
       <a href="#" class="menu-item profile">
         <img src="{{ url_for('static', filename='img/img_feed/user_ex_feminino.jpg') }}" alt="Perfil" class="profile-avatar">
@@ -74,13 +74,13 @@
       </section>
       <h4>Compartilhe sua história</h4>
 
-      <form class="post-form" id="postForm">
-        <textarea id="textoPost" placeholder="Qual foi sua boa ação de hoje?" required></textarea>
+      <form class="post-form" id="postForm" method="POST" action="/publicar" enctype="multipart/form-data">
+        <textarea id="textoPost" name="texto" placeholder="Qual foi sua boa ação de hoje?" required></textarea>
            <div class="upload-container">
-        <label for="foto" class="botao-foto"> Adicionar foto</label>
-        <input type="file" id="foto" accept="image/*">
+        <label for="foto" class="botao-foto">Adicionar foto(s)</label>
+        <input type="file" id="foto" name="foto" accept="image/*" multiple max="4">
       </div>
-
+        <input type="hidden" name="categoria" id="categoriaInput" value="historia">
         <button type="submit" class="btn primary enviar-btn">
           Publicar
         </button>
@@ -92,65 +92,56 @@
 
 
     <main class="container main-with-suggestions">
-     
-      <section class="interaction">
-        <div class="button-group">
-          <button id="btn_hist"><i data-lucide="filter"></i> Tudo</button>
-          <button id="btn_camp"><i data-lucide="trending-up"></i> Campanhas</button>
-          <button id="btn_itens"><i data-lucide="box"></i> Itens</button>
-          <button id="btn_hist"><i data-lucide="heart"></i> Histórias</button>
-        </div>
-      </section>
-
-      <article class="card">
+      {% for post in publicacoes %}
+      <article class="card" data-post-id="{{ post.id }}">
         <div class="header">
-          <img src="{{ url_for('static', filename='img/img_feed/sorrindo-jovem-etnico-femininas-em-t-shirt-ligado-experiencia-colorida.jpg') }}" alt="Autor" class="avatar" />
+          <img src="{{ url_for('static', filename='img/img_feed/user_ex_feminino.jpg') }}" alt="Autor" class="avatar" />
           <div class="author-info">
             <div class="author-name">
-              <span>Mariana Silva</span>
-              
-              <span class="badge">ONG</span>
+              <span>{{ post.autor }}</span>
+              <span class="badge">{{ post.categoria }}</span>
             </div>
-            <p class="timestamp">Há 2 horas</p>
+            <p class="timestamp">{{ post.timestamp }}</p>
+            <span class="post-id">ID: {{ post.id }}</span>
           </div>
+          <button class="action-btn delete-post-btn" data-post-id="{{ post.id }}" title="Excluir post" style="margin-left:auto;">
+            <i data-lucide="trash-2"></i>
+          </button>
         </div>
-
         <div class="content">
-          <p>Estamos arrecadando doações para ajudar famílias carentes neste inverno. Participe!</p>
-        </div>
-
-        <div class="image-grid">
-          <img src="{{ url_for('static', filename='img/img_feed/7101122.jpg') }}" alt="Imagem 1" class="post-image" />
-          <img src="{{ url_for('static', filename='img/img_feed/6143817.jpg') }}" alt="Imagem 2" class="post-image" />
-        </div>
-
-        <section class="campaign">
-          <div class="campaign-header">
-            <h3>Campanha de Inverno Solidário</h3>
-            <span class="badge blue"><span class="icon">🕒</span> 12d</span>
+          <p>{{ post.texto }}</p>
+          {% if post.fotos_urls and post.fotos_urls|length > 0 %}
+          <div class="image-grid image-grid-{{ post.fotos_urls|length }}">
+            {% for url in post.fotos_urls %}
+            <img src="{{ url_for('static', filename=url) }}" alt="Imagem do post" class="post-image" />
+            {% endfor %}
           </div>
-         
-          <div class="campaign-info">
-            <span class="desc">Ajude divulgando ou participando desta campanha!</span>
-          </div>
-        </section>
-
+          {% endif %}
+        </div>
         <div class="actions">
-          <button class="action-btn like-btn">
+          <button class="action-btn like-btn" data-post-id="{{ post.id }}">
             <i data-lucide="heart"></i>
-            <span class="count">120</span>
+            <span class="count">{{ post.curtidas }}</span>
           </button>
-          <button class="action-btn comment-btn">
+          <button class="action-btn toggle-comments-btn" data-post-id="{{ post.id }}">
             <i data-lucide="message-circle"></i>
-            <span class="count">34</span>
-          </button>
-          <button class="action-btn share-btn">
-            <i data-lucide="share-2"></i>
-            <span class="count">12</span>
+            <span>Ver comentários ({{ post.comentarios|length }})</span>
           </button>
         </div>
-
+        <div class="comments comments-accordion" id="comments-{{ post.id }}" style="display:none;">
+          <h5>Comentários ({{ post.comentarios|length }})</h5>
+          <ul>
+            {% for comentario in post.comentarios %}
+            <li><b>{{ comentario.autor }}:</b> {{ comentario.texto }}</li>
+            {% endfor %}
+          </ul>
+          <form class="comment-form" data-post-id="{{ post.id }}" method="POST" action="/comentar/{{ post.id }}">
+            <input type="text" name="comentario" placeholder="Adicionar comentário..." required />
+            <button type="submit">Comentar</button>
+          </form>
+        </div>
       </article>
+      {% endfor %}
     </main>
     <aside class="suggestions-box right-sidebar">
       <h3>Sugestões para você</h3>
@@ -211,8 +202,8 @@
       </div>
     </div>
     <form class="chatbot-input-area">
-      <input type="text" placeholder="Digite sua mensagem..." disabled />
-      <button type="submit" disabled>Enviar</button>
+      <input type="text" placeholder="Digite sua mensagem..." autocomplete="off" />
+      <button type="submit">Enviar</button>
     </form>
   </div>
 
