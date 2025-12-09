@@ -1,5 +1,7 @@
+
+
 import os  # Importa funções do sistema operacional
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify  # Importa funções do Flask
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash  # Importa funções do Flask
 from werkzeug.utils import secure_filename  # Garante nomes seguros para arquivos
 import uuid  # Gera IDs únicos
 import json  # Manipula arquivos JSON
@@ -13,8 +15,105 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "senac123")  # Chave da sessão
 
+
+# ------------------- AUTENTICAÇÃO E USUÁRIOS (JSON) -------------------
+from werkzeug.security import generate_password_hash, check_password_hash
+
+# Caminho do arquivo JSON de usuários
+USUARIOS_JSON = os.path.join(os.path.dirname(__file__), 'banco_dados', 'usuarios.json')
+
+def carregar_usuarios():
+    if os.path.exists(USUARIOS_JSON):
+        with open(USUARIOS_JSON, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return []
+
+def salvar_usuarios(usuarios):
+    with open(USUARIOS_JSON, 'w', encoding='utf-8') as f:
+        json.dump(usuarios, f, ensure_ascii=False, indent=2)
+
+@app.route("/login", methods=["GET","POST"])
+def login():
+    if "user_id" in session:
+        return redirect(url_for("feed"))
+    if request.method == "POST":
+        email = request.form.get("email", "").strip()
+        password = request.form.get("password", "").strip()
+        usuarios = carregar_usuarios()
+        user = next((u for u in usuarios if u["email"] == email), None)
+        if user and check_password_hash(user["password_hash"], password):
+            session["user_id"] = user["id"]
+            session["user_name"] = user["name"]
+            flash(f"Bem-vindo(a), {user['name']}!", "success")
+            return redirect(url_for("feed"))
+        else:
+            flash("E-mail ou senha inválida.", "danger")
+    return render_template("login.html")
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if "user_id" in session:
+        return redirect(url_for("home"))
+    if request.method == "POST":
+        name = request.form.get("name", "").strip()
+        email = request.form.get("email", "").strip()
+        password = request.form.get("password", "").strip()
+        confirm_password = request.form.get("confirm_password", "").strip()
+        if password != confirm_password:
+            flash("As senhas não conferem.", "danger")
+            return redirect(url_for("register"))
+        usuarios = carregar_usuarios()
+        if any(u["email"] == email for u in usuarios):
+            flash("E-mail já cadastrado.", "danger")
+            return redirect(url_for("register"))
+        new_id = max([u["id"] for u in usuarios], default=0) + 1
+        password_hash = generate_password_hash(password)
+        novo_usuario = {
+            "id": new_id,
+            "name": name,
+            "email": email,
+            "password_hash": password_hash
+        }
+        usuarios.append(novo_usuario)
+        salvar_usuarios(usuarios)
+        flash("Cadastro realizado com sucesso! Faça login.", "success")
+        return redirect(url_for("login"))
+    return render_template("register.html")
+
+@app.route("/forgot_password", methods=["GET"])
+def forgot_password():
+    return render_template("forgot_password.html")
+
+@app.route("/forgot_password", methods=["POST"])
+def forgot_password_submit():
+    email = request.form.get("email", "").strip()
+    usuarios = carregar_usuarios()
+    if any(u["email"] == email for u in usuarios):
+        flash("Se o e-mail existir, você receberá um link para redefinir a senha.", "info")
+    else:
+        flash("Informe um e-mail válido.", "danger")
+    return redirect(url_for("forgot_password"))
+
+@app.route("/termos")
+def termos():
+    return "<h1>Termos de Uso</h1><p>Exemplo.</p>"
+
+@app.route("/home")
+def home():
+    if "user_id" not in session:
+        flash("Faça login para acessar.", "warning")
+        return redirect(url_for("login"))
+    return render_template("home.html", name=session.get("user_name"))
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    flash("Você saiu do sistema.", "info")
+    return redirect(url_for("login"))
+
+
 # Caminho do arquivo JSON de publicações
-PUBLICACOES_JSON = os.path.join(os.path.dirname(__file__), 'publicacoes.json')
+PUBLICACOES_JSON = os.path.join(os.path.dirname(__file__), 'banco_dados', 'publicacoes.json')
 
 # Função para carregar publicações
 def carregar_publicacoes():
@@ -45,12 +144,25 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@app.route('/excluir_comentario/<post_id>/<int:comment_idx>', methods=['POST'])
+def excluir_comentario(post_id, comment_idx):
+    for post in publicacoes:
+        if post['id'] == post_id:
+            if 0 <= comment_idx < len(post['comentarios']):
+                post['comentarios'].pop(comment_idx)
+                salvar_publicacoes()
+                return redirect(url_for('feed'))
+    return '', 400
+
 
 # ---------------- ROTAS DA APLICAÇÃO ----------------
 
 @app.route('/')
 def feed():
-    return render_template('feed.html', publicacoes=publicacoes)
+    if "user_id" not in session:
+        flash("Faça login para acessar o feed.", "warning")
+        return redirect(url_for("login"))
+    return render_template('feed.html', publicacoes=publicacoes, usuario_nome=session.get("user_name"), usuario_id=session.get("user_id"))
 
 @app.route('/landing')
 def landing():
@@ -71,8 +183,12 @@ def notificacoes():
 
 # ---------------- PUBLICAR POST ----------------
 
+
 @app.route('/publicar', methods=['POST'])
 def publicar():
+    if "user_id" not in session:
+        flash("Faça login para publicar.", "warning")
+        return redirect(url_for("login"))
     texto = request.form.get('texto')
     categoria = request.form.get('categoria')
     fotos = request.files.getlist('foto')
@@ -90,7 +206,8 @@ def publicar():
     if texto:
         post = {
             'id': gerar_id(),
-            'autor': 'Usuário',
+            'autor': session.get('user_name', 'Usuário'),
+            'autor_id': session.get('user_id'),
             'categoria': categoria,
             'texto': texto,
             'fotos_urls': fotos_urls,
@@ -104,7 +221,6 @@ def publicar():
     return redirect(url_for('feed'))
 
 
-# ---------------- CURTIR POST ----------------
 
 @app.route('/curtir/<post_id>', methods=['POST'])
 def curtir_post(post_id):
@@ -116,7 +232,6 @@ def curtir_post(post_id):
     return ('', 204)
 
 
-# ---------------- COMENTAR POST ----------------
 
 @app.route('/comentar/<post_id>', methods=['POST'])
 def comentar_post(post_id):
@@ -132,7 +247,6 @@ def comentar_post(post_id):
     return '', 400
 
 
-# ---------------- EXCLUIR POST ----------------
 
 @app.route('/excluir/<post_id>', methods=['POST'])
 def excluir_post(post_id):
@@ -142,25 +256,25 @@ def excluir_post(post_id):
     return ('', 204)
 
 
-# ---------------- CHATBOT (GEMINI) ----------------
 
-# Carrega chave do .env
+
+
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 
 # Configura API Gemini
 genai.configure(api_key=GOOGLE_API_KEY)
 
-# Limite de tokens do histórico
+
 MAX_TOKENS_HISTORY = 200000
 
-# Persona fixa da assistente Nati
+
 PERSONA_NATI = """
 Você é Nati, assistente social digital do Impacta.
 Sua missão é orientar, acolher, explicar recursos do site
 e conversar com empatia. Nunca diga que é uma IA.
 """
 
-# Função para estimar tokens
+#
 def estimate_tokens(messages):
     return sum(len(m["role"]) + len(m["content"]) for m in messages) // 2
 
@@ -171,15 +285,14 @@ def chatbot():
         data = request.get_json()
         user_msg = data.get('message', '').strip()
 
-        # Rejeita mensagens vazias
         if not user_msg:
             return jsonify({"erro": "Mensagem vazia"}), 400
 
-        # Rejeita spam
+        
         if len(user_msg) < 2:
             return jsonify({"erro": "Mensagem muito curta"}), 400
 
-        # Carrega histórico
+        
         if "chat_history" not in session:
             session["chat_history"] = [
                 {"role": "system", "content": PERSONA_NATI}
@@ -195,21 +308,19 @@ def chatbot():
             history = history[-30:]
             history.insert(0, {"role": "system", "content": PERSONA_NATI})
 
-        # Junta histórico em texto
+        
         prompt = "\n".join([f"{m['role']}: {m['content']}" for m in history])
 
-        # Modelo Gemini correto
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel("gemini-2.5-flash")
 
-        # Gera resposta
+      
         response = model.generate_content(prompt)
         bot_reply = response.text
 
-        # Resposta de fallback
         if not bot_reply.strip():
             bot_reply = "Desculpe, tive um problema ao responder. Pode tentar novamente?"
 
-        # Salva resposta no histórico
+        
         history.append({"role": "assistant", "content": bot_reply})
         session["chat_history"] = history
 
@@ -219,7 +330,7 @@ def chatbot():
         return jsonify({"erro": f"Erro ao conectar à IA: {e}"}), 500
 
 
-# ---------------- EXECUTAR SERVIDOR ----------------
+
 
 if __name__ == '__main__':
     app.run(debug=True)

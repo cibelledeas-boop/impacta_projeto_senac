@@ -1,3 +1,18 @@
+  // Excluir comentário via AJAX
+  document.querySelectorAll('.delete-comment-form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const postId = form.getAttribute('data-post-id');
+      const commentIdx = form.getAttribute('data-comment-idx');
+      fetch(`/excluir_comentario/${postId}/${commentIdx}`, { method: 'POST' })
+        .then(res => {
+          if (res.ok) {
+            // Remove o comentário do DOM
+            form.closest('li').remove();
+          }
+        });
+    });
+  });
 // IMPACTA - Script principal
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -329,7 +344,13 @@ if (chatbotForm && chatbotInput && chatbotMessages) {
     .then(data => {
       const botDiv = document.createElement('div');
       botDiv.className = 'chatbot-message chatbot-message-bot';
-      botDiv.innerHTML = `<span>${data.response}</span>`;
+      if (data.resposta) {
+        botDiv.innerHTML = `<span>${data.resposta}</span>`;
+      } else if (data.erro) {
+        botDiv.innerHTML = `<span style="color:#e74c3c;">${data.erro}</span>`;
+      } else {
+        botDiv.innerHTML = `<span>Desculpe, houve um erro inesperado.</span>`;
+      }
       chatbotMessages.appendChild(botDiv);
       chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
     })
