@@ -1,32 +1,30 @@
 [
   {
-    "id": "ac10a78e-bfff-4d3a-8551-1356218bf695",
+    "id": "8ba49c47-e78d-43c6-a2bc-c2f0845f1242",
     "autor": "Usuário",
-    "categoria": "item",
-    "texto": "teste 3",
+    "categoria": "historia",
+    "texto": "ieftjgioldfujvgiodtjitgvi",
+    "fotos_urls": [],
+    "timestamp": "08/12/2025 20:31",
+    "curtidas": 0,
+    "comentarios": []
+  },
+  {
+    "id": "5cc42ab7-fdff-4aae-af18-570ed982acd5",
+    "autor": "Usuário",
+    "categoria": "historia",
+    "texto": "testando",
     "fotos_urls": [
-      "img/uploads/Captura_de_tela_2023-10-29_175109.png"
+      "img/uploads/Captura_de_tela_2025-10-21_212502.png"
     ],
-    "timestamp": "Agora",
-    "curtidas": 2,
+    "timestamp": "08/12/2025 20:18",
+    "curtidas": 15,
     "comentarios": [
       {
         "autor": "Usuário",
-        "texto": "teste"
+        "texto": "opkok"
       }
     ]
-  },
-  {
-    "id": "8e3a0b8c-9d20-4595-8751-dc8d8f6feeeb",
-    "autor": "Usuário",
-    "categoria": "campanha",
-    "texto": "teste",
-    "fotos_urls": [
-      "img/uploads/Captura_de_tela_2023-10-29_174417.png"
-    ],
-    "timestamp": "Agora",
-    "curtidas": 0,
-    "comentarios": []
   },
   {
     "id": "5c5cf5cd-7d3f-4ef1-b507-247ab090f5cf",

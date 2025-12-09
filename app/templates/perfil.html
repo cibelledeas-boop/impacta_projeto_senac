@@ -16,17 +16,12 @@
         </div>
 
         <nav class="menu">
-            <a href="{{ url_for('feed') }}" class="menu-item"><i class="fa-solid fa-globe"></i> <span>Feed</span></a>
+            <a href="{{ url_for('feed') }}" class="menu-item "><i class="fa-solid fa-globe"></i> <span>Feed</span></a>
             <a href="{{ url_for('perfil') }}" class="menu-item active"><i class="fa-solid fa-user"></i> <span>Perfil</span></a>
             <a href="{{ url_for('direct') }}" class="menu-item"><i class="fa-solid fa-paper-plane"></i> <span>Direct</span></a>
             <a href="{{ url_for('landing') }}" class="menu-item"><i class="fa-solid fa-bullhorn"></i> <span>Landing</span></a>
             <a href="{{ url_for('notificacoes') }}" class="menu-item"><i class="fa-solid fa-bell"></i> <span>Notificações</span></a>
         </nav>
-        
-        <a href="#" class="btn-create-post" id="open-post-modal">
-            <i class="fa-solid fa-plus"></i>
-            <span>Criar Post</span>
-        </a>
     </header>
 
 
@@ -128,34 +123,6 @@
                 </div>
                 
             </div>
-        </div>
-    </div>
-    <div id="create-post-modal" class="popup-ig post-creator">
-        <div class="popup-card create-card">
-            <h3 class="titulo-ig">Criar Nova Publicação</h3>
-            <span class="close-ig" id="close-create-post">&times;</span>
-
-            <form id="create-post-form" class="edit-form">
-                
-                <div class="form-row media-upload-area">
-                    <label>Selecione a Mídia</label>
-                    <input type="file" id="create-file-input" accept="image/*" required style="display: none;">
-                    
-                    <div class="upload-box" id="upload-box-trigger">
-                        <i class="fa-solid fa-image"></i>
-                        <p>Clique para selecionar uma foto ou vídeo</p>
-                    </div>
-                    
-                    <img id="create-image-preview" src="" style="display: none; max-width: 100%; max-height: 250px; margin-top: 10px; border-radius: 8px; object-fit: cover;">
-                </div>
-
-                <div class="form-row">
-                    <label for="create-caption">Legenda</label>
-                    <textarea id="create-caption" placeholder="Escreva a legenda do seu post..."></textarea>
-                </div>
-                
-                <button type="submit" class="btn-salvar">Publicar</button>
-            </form>
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/perfil.js') }}"></script>

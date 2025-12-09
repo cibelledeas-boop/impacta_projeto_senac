@@ -36,32 +36,11 @@
 
         <aside class="sidebar">
             <nav>
-                <ul>
-                    <li>
-                        <a href="/feed">
-                            <i class="fa-solid fa-globe"></i>
-                            <span>Feed</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/landing">
-                            <i class="fa-solid fa-home"></i>
-                            <span>Landing Page</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/notificacoes">
-                            <i class="fa-solid fa-bell"></i>
-                            <span>Notificações</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/perfil">
-                            <i class="fa-solid fa-user"></i>
-                            <span>Perfil</span>
-                        </a>
-                    </li>
-                </ul>
+                <a href="{{ url_for('feed') }}" class="menu-item"><i class="fa-solid fa-globe"></i> <span>Feed</span></a>
+            <a href="{{ url_for('perfil') }}" class="menu-item"><i class="fa-solid fa-user"></i> <span>Perfil</span></a>
+            <a href="{{ url_for('direct') }}" class="menu-item"><i class="fa-solid fa-paper-plane"></i> <span>Direct</span></a>
+            <a href="{{ url_for('landing') }}" class="menu-item"><i class="fa-solid fa-bullhorn"></i> <span>Landing</span></a>
+            <a href="{{ url_for('notificacoes') }}" class="menu-item"><i class="fa-solid fa-bell"></i> <span>Notificações</span></a>
             </nav>
         </aside>
 
