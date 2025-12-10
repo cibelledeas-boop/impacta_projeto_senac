@@ -3,6 +3,7 @@
     "id": 1,
     "name": "Cibelle de Assis Silva",
     "email": "cibelledea.s@gmail.com",
-    "password_hash": "scrypt:32768:8:1$tMjdxuOdW3AFrsH2$dd323f8603860ce1b04830793ca8d46c27e837f7dec73ca4b37df2c639f0e2913062b9e84534208c88b51599a1af843462836ef465edff53ec7ee7f098c4b37d"
+    "password_hash": "scrypt:32768:8:1$tMjdxuOdW3AFrsH2$dd323f8603860ce1b04830793ca8d46c27e837f7dec73ca4b37df2c639f0e2913062b9e84534208c88b51599a1af843462836ef465edff53ec7ee7f098c4b37d",
+    "foto_perfil": "img/img_feed/user_ex_feminino.jpg"
   }
 ]

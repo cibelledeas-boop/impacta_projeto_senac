@@ -20,6 +20,7 @@
             <a href="{{ url_for('direct') }}" class="menu-item"><i class="fa-solid fa-paper-plane"></i> <span>Direct</span></a>
             <a href="{{ url_for('landing') }}" class="menu-item"><i class="fa-solid fa-bullhorn"></i> <span>Landing</span></a>
             <a href="{{ url_for('notificacoes') }}" class="menu-item"><i class="fa-solid fa-bell"></i> <span>Notificações</span></a>
+            <a href="{{ url_for('logout') }}" class="menu-item"><i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span></a>
     </nav>
   </aside>
 
@@ -96,7 +97,7 @@
       {% for post in publicacoes %}
       <article class="card" data-post-id="{{ post.id }}">
         <div class="header">
-          <img src="{{ url_for('static', filename='img/img_feed/user_ex_feminino.jpg') }}" alt="Autor" class="avatar" />
+          <img src="{{ url_for('static', filename=post.foto_perfil if post.foto_perfil else 'img/img_feed/user_ex_feminino.jpg') }}" alt="Autor" class="avatar" />
           <div class="author-info">
             <div class="author-name">
               <span>{{ post.autor }}</span>

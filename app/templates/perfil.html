@@ -28,11 +28,11 @@
     <main class="perfil-container">
 
         <section class="perfil-info">
-            <img src="{{ url_for('static', filename='img/img_feed/sorrindo-jovem-etnico-femininas-em-t-shirt-ligado-experiencia-colorida.jpg') }}"
+            <img src="{{ url_for('static', filename=usuario_foto_perfil if usuario_foto_perfil else 'img/img_feed/user_ex_feminino.jpg') }}"
                 class="perfil-avatar"> 
 
             <div class="infos">
-                <h2 id="nome-perfil">@Mariana.Silva</h2> <ul class="stats">
+                <h2 id="nome-perfil">@{{ usuario_nome }}</h2> <ul class="stats">
                     <li><strong>12</strong> publicações</li>
                     <li><strong>340</strong> seguidores</li>
                     <li><strong>280</strong> seguindo</li>
@@ -64,8 +64,7 @@
         <div class="popup-card">
             <h3 class="titulo-ig">Editar Perfil</h3>
             <span class="close-ig" id="close-edit">&times;</span> <div class="edit-header">
-                <img src="{{ url_for('static', filename='img/img_feed/sorrindo-jovem-etnico-femininas-em-t-shirt-ligado-experiencia-colorida.jpg') }}" class="edit-avatar"> 
-                
+                <img src="{{ url_for('static', filename=usuario_foto_perfil if usuario_foto_perfil else 'img/img_feed/user_ex_feminino.jpg') }}" class="edit-avatar"> 
                 <div>
                      <span class="change-photo" onclick="document.getElementById('edit-file').click()">Mudar Foto do Perfil</span>
                      <input type="file" id="edit-file" style="display: none;" accept="image/*"> 
@@ -96,8 +95,8 @@
                 
                 <div class="viewer-details">
                     <div class="viewer-header">
-                        <img class="viewer-avatar" src="{{ url_for('static', filename='img/img_feed/sorrindo-jovem-etnico-femininas-em-t-shirt-ligado-experiencia-colorida.jpg') }}">
-                        <strong>@Mariana.Silva</strong>
+                        <img class="viewer-avatar" src="{{ url_for('static', filename=usuario_foto_perfil if usuario_foto_perfil else 'img/img_feed/user_ex_feminino.jpg') }}">
+                        <strong>@{{ usuario_nome }}</strong>
                     </div>
                     
                     <div class="viewer-comments">
