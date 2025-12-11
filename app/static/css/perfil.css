@@ -232,9 +232,12 @@ body {
     height: 180px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--surface-100); 
-    box-shadow: var(--shadow-primary-6);
+    border: 3px solid var(--surface-100);
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgba(0,0,0,0.08);
 }
+
 
 .infos {
     display: flex;
@@ -368,7 +371,10 @@ body {
     height: 65px;
     border-radius: 50%;
     object-fit: cover;
+    overflow: hidden;
+    background-color: #fff;
 }
+
 
 .change-photo {
     color: var(--color-primary-600); 

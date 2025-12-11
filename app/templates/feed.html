@@ -97,7 +97,7 @@
       {% for post in publicacoes %}
       <article class="card" data-post-id="{{ post.id }}">
         <div class="header">
-          <img src="{{ url_for('static', filename=post.foto_perfil if post.foto_perfil else 'img/img_feed/user_ex_feminino.jpg') }}" alt="Autor" class="avatar" />
+          <img src="{{ url_for('static', filename=post.foto_perfil if post.foto_perfil else 'img/img_feed/user_padrao_noFoto.png') }}" alt="Autor" class="avatar" />
           <div class="author-info">
             <div class="author-name">
               <span>{{ post.autor }}</span>
@@ -154,7 +154,7 @@
       <h3>Sugestões para você</h3>
       <ul class="suggestions-list">
         <li class="suggestion-item">
-          <img src="{{ url_for('static', filename='img/img_feed/user_ex_feminino.jpg') }}" alt="Ana Lima" class="suggestion-avatar" />
+          <img src="{{ url_for('static', filename='img/img_feed/user_padrao_noFoto.png') }}" alt="Ana Lima" class="suggestion-avatar" />
           <div class="suggestion-info">
             <span class="suggestion-name">Ana Lima</span>
             <span class="suggestion-desc">Voluntária</span>

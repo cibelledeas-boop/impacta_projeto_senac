@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const editModal = document.getElementById('edit-modal');
     const openEditButton = document.getElementById('open-edit');
     const closeEditButton = document.getElementById('close-edit');
-    const editForm = document.getElementById('edit-form');
+    const editForm = document.getElementById('edit-form'); // O formulário de edição
 
     // Modal de Criação de Post
     const createPostModal = document.getElementById('create-post-modal');
@@ -58,11 +58,18 @@ document.addEventListener('DOMContentLoaded', function() {
     if (openEditButton && editModal) {
         openEditButton.addEventListener('click', function() {
             // Carrega os dados atuais nos inputs do formulário
-            inputNome.value = nomePerfilDisplay.textContent.trim();
-            // Troca <br> por \n para textarea
-            const currentBio = bioPerfilDisplay.innerHTML.replace(/<br>/g, '\n').trim();
-            inputBio.value = currentBio; 
-            editAvatarPreview.src = perfilAvatarDisplay.src; 
+            if (nomePerfilDisplay) {
+                // Remove todos os @ do início do nome
+                inputNome.value = nomePerfilDisplay.textContent.replace(/^@+/, '').trim();
+            }
+            if (bioPerfilDisplay) {
+                // Troca <br> por \n para textarea
+                const currentBio = bioPerfilDisplay.innerHTML.replace(/<br>/g, '\n').trim();
+                inputBio.value = currentBio; 
+            }
+            if (perfilAvatarDisplay && editAvatarPreview) {
+                editAvatarPreview.src = perfilAvatarDisplay.src; 
+            }
             openModal(editModal);
         });
     }
@@ -73,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Preview da imagem de Edição
-    if (inputFile) {
+    if (inputFile && editAvatarPreview) {
         inputFile.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
@@ -87,23 +94,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Submissão do Formulário de Edição (Salvar)
     if (editForm) {
         editForm.addEventListener('submit', function(e) {
-            e.preventDefault(); 
-            const novoNome = inputNome.value.trim();
-            const novaBio = inputBio.value.trim();
             
-            // Atualiza os elementos da página
-            nomePerfilDisplay.textContent = novoNome;
-            // Troca \n por <br> para display no HTML
-            bioPerfilDisplay.innerHTML = novaBio.replace(/\n/g, '<br>');
-
-            // Atualiza o avatar principal se houver alteração
-            if (editAvatarPreview.src && editAvatarPreview.src !== perfilAvatarDisplay.src) {
-                 perfilAvatarDisplay.src = editAvatarPreview.src; 
-            }
-
-            console.log('Dados do perfil salvos (Simulação):', { nome: novoNome, bio: novaBio });
-            alert('Perfil atualizado com sucesso!');
-            closeModal(editModal);
+            // 💡 CORREÇÃO CRÍTICA: Não impedimos mais a submissão padrão do formulário.
+            // O formulário (incluindo a nova foto) será enviado para o Flask.
+            // O Flask processa os dados, salva no JSON e faz um redirect.
+            
+            // e.preventDefault(); // <-- LINHA REMOVIDA
+            
+            // Removemos as manipulações do DOM (nomePerfilDisplay, etc.)
+            // que simulavam a atualização, pois a página será recarregada pelo Flask.
+            
+            // Opcional: Fechar o modal imediatamente, embora o redirect do Flask o fecharia.
+            // Não é necessário, mas se o Flask demorar, pode dar um feedback visual.
+            // closeModal(editModal); 
+            
         });
     }
     
@@ -125,12 +129,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Trigger para abrir a seleção de arquivo ao clicar na caixa de upload
-    if (createUploadBox) {
+    if (createUploadBox && createFileInput) {
         createUploadBox.addEventListener('click', () => createFileInput.click());
     }
 
     // Preview da imagem de Criação
-    if (createFileInput) {
+    if (createFileInput && createImagePreview && createUploadBox) {
         createFileInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
@@ -148,6 +152,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Submissão do Formulário de Criação (Publicar)
     if (createPostForm) {
         createPostForm.addEventListener('submit', function(e) {
+            // Note: Você estava SIMULANDO a submissão aqui. 
+            // Se você quiser que o post seja REALMENTE enviado ao Flask, 
+            // você deve remover o e.preventDefault() aqui também.
+            
+            // Mantendo a simulação (como estava no seu código original)
             e.preventDefault(); 
             
             const legenda = createCaptionInput.value.trim();
@@ -171,6 +180,9 @@ document.addEventListener('DOMContentLoaded', function() {
             createImagePreview.style.display = 'none';
             createUploadBox.style.display = 'flex'; // Reexibe a caixa
             closeModal(createPostModal);
+            
+            // 🛑 SE você usar esta simulação, lembre-se de que a rota /publicar no Flask nunca é acionada!
+            // Para acionar o Flask, remova o e.preventDefault() ou use fetch/Ajax.
         });
     }
 
@@ -187,9 +199,12 @@ document.addEventListener('DOMContentLoaded', function() {
     postItems.forEach(item => {
         item.addEventListener('click', function() {
             const imgElement = item.querySelector('img');
-            if (imgElement) {
+            if (imgElement && viewPostModal) {
                 // Carrega a imagem clicada no modal de visualização
-                document.getElementById('viewer-img').src = imgElement.src;
+                const viewerImg = document.getElementById('viewer-img');
+                if (viewerImg) {
+                     viewerImg.src = imgElement.src;
+                }
                 openModal(viewPostModal);
             }
         });
