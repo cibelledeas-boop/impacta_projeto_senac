@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+
+  <!-- Fonte -->
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Ícone do Site -->
+  <link rel="icon" href="{{ url_for('static', filename='img/icon/blog-logo.svg') }}" type="image/x-icon">
+</head>
+
+<body>
+  <div class="lado-a-lado">
+    <header class="lado">
+      <div class="left">
+        <img src="{{ url_for('static', filename='img/icon/WhatsApp Image 2025-11-11 at 20.19.46.jpeg') }}" alt="Imagem esquerda">
+      </div>
+    </header>
+
+    <section class="container">
+      <div class="lado-formulario">
+
+        <div class="logo">
+          <img class="loguin" src="{{ url_for('static', filename='img/icon/logo.png') }}" alt="Logo da plataforma">
+        </div>
+
+        <h2>Estamos quase lá!</h2>
+
+        <!-- Exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        <p>Já tem uma conta? <a href="{{ url_for('login') }}">Login</a></p>
+
+        <form method="POST" action="{{ url_for('register') }}">
+          <div class="input-group">
+            <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+          </div>
+
+          <div class="input-group">
+            <input type="text" id="nome" name="name" placeholder="Nome Completo" required>
+          </div>
+
+          <div class="input-group">
+            <input type="password" id="senha" name="password" placeholder="Digite sua senha" required>
+          </div>
+
+          <div class="input-group">
+            <input type="password" id="confirmar_senha" name="confirm_password" placeholder="Confirme sua senha" required>
+          </div>
+
+          <div class="checkbox">
+            <input type="checkbox" id="checkbox" required>
+            <label for="checkbox">
+              Ao se cadastrar, você concorda com os
+              <a href="{{ url_for('termos') }}">termos de uso</a> da plataforma.
+            </label>
+          </div>
+
+          <button type="submit" class="btn">Criar conta</button>
+        </form>
+
+        <div class="linha"><span></span></div>
+
+        <div class="social-login">
+          <button class="social-btn">
+            <img src="{{ url_for('static', filename='icon/pesquisa.png') }}" alt="Google">
+            Registrar com Google
+          </button>
+          
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>
