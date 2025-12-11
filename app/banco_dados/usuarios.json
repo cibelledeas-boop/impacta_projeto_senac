@@ -4,6 +4,7 @@
     "name": "Cibelle de Assis Silva",
     "email": "cibelledea.s@gmail.com",
     "password_hash": "scrypt:32768:8:1$tMjdxuOdW3AFrsH2$dd323f8603860ce1b04830793ca8d46c27e837f7dec73ca4b37df2c639f0e2913062b9e84534208c88b51599a1af843462836ef465edff53ec7ee7f098c4b37d",
+
     "foto_perfil": "img/img_feed/user_padrao_noFoto.png",
     "bio": "olaaa"
   },
@@ -20,5 +21,7 @@
     "email": "cibelleassis9@gmail.com",
     "password_hash": "scrypt:32768:8:1$AN23mlLmwRwaZU71$b94f4d70f89257f416f9205fb4da92ed3814037e9e1dac247b2f8a0c3a4ea6e54f1ed7437445828815186573dae1836d3f9fd36fe1432e5aea53c4ff9431651c",
     "foto_perfil": "img/img_feed/user_padrao_noFoto.png"
-  }
-]
+
+    }
+
+  ]

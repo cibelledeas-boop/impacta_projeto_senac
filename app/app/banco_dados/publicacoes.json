@@ -1,0 +1,147 @@
+[
+  {
+    "id": "d17c4117-89fa-433e-a66b-4d7477ca9c61",
+    "autor": "Cibelle de Assis Silva",
+    "autor_id": 1,
+    "foto_perfil": "img/img_feed/user_ex_feminino.jpg",
+    "categoria": "historia",
+    "texto": "teste\r\n",
+    "fotos_urls": [
+      "img/uploads/homem-retrato-rindo.jpg"
+    ],
+    "timestamp": "09/12/2025 23:03",
+    "curtidas": 0,
+    "comentarios": []
+  },
+  {
+    "id": "ef15df62-c418-4a6f-855b-50f34e557caf",
+    "autor": "Cibelle de Assis Silva",
+    "autor_id": 1,
+    "categoria": "campanha",
+    "texto": "meu primeiro post",
+    "fotos_urls": [
+      "img/uploads/logo.png"
+    ],
+    "timestamp": "09/12/2025 01:42",
+    "curtidas": 0,
+    "comentarios": []
+  },
+  {
+    "id": "8ba49c47-e78d-43c6-a2bc-c2f0845f1242",
+    "autor": "Usuário",
+    "categoria": "historia",
+    "texto": "ieftjgioldfujvgiodtjitgvi",
+    "fotos_urls": [],
+    "timestamp": "08/12/2025 20:31",
+    "curtidas": 0,
+    "comentarios": []
+  },
+  {
+    "id": "5cc42ab7-fdff-4aae-af18-570ed982acd5",
+    "autor": "Usuário",
+    "categoria": "historia",
+    "texto": "testando",
+    "fotos_urls": [
+      "img/uploads/Captura_de_tela_2025-10-21_212502.png"
+    ],
+    "timestamp": "08/12/2025 20:18",
+    "curtidas": 15,
+    "comentarios": [
+      {
+        "autor": "Usuário",
+        "texto": "opkok"
+      }
+    ]
+  },
+  {
+    "id": "5c5cf5cd-7d3f-4ef1-b507-247ab090f5cf",
+    "autor": "Usuário",
+    "categoria": "historia",
+    "texto": "teste2",
+    "foto_url": "img/uploads/Captura_de_tela_2023-10-29_174218.png",
+    "timestamp": "Agora",
+    "curtidas": 1,
+    "comentarios": [
+      {
+        "autor": "Usuário",
+        "texto": "teste coment"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste coment"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste coment"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste coment"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste coment"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste coment"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste coment"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste coment"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste coment"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste coment"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "llsoaoa"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "llsoaoa"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "llsoaoa"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste2"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste2"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "teste 3"
+      },
+      {
+        "autor": "Usuário",
+        "texto": "ll"
+      }
+    ]
+  }
+]
