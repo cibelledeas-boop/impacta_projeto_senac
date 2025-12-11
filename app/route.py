@@ -1,5 +1,3 @@
-
-
 import os  # Importa funções do sistema operacional
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash  # Importa funções do Flask
 from werkzeug.utils import secure_filename  # Garante nomes seguros para arquivos
@@ -72,7 +70,8 @@ def register():
             "id": new_id,
             "name": name,
             "email": email,
-            "password_hash": password_hash
+            "password_hash": password_hash,
+            "foto_perfil": "img/img_feed/user_ex_feminino.jpg"
         }
         usuarios.append(novo_usuario)
         salvar_usuarios(usuarios)
@@ -110,6 +109,39 @@ def logout():
     session.clear()
     flash("Você saiu do sistema.", "info")
     return redirect(url_for("login"))
+
+# ------------------- EDITAR PERFIL E FOTO -------------------
+@app.route('/editar_perfil', methods=['POST'])
+def editar_perfil():
+    if "user_id" not in session:
+        flash("Faça login para editar seu perfil.", "warning")
+        return redirect(url_for("login"))
+    nome = request.form.get("nome")
+    bio = request.form.get("bio")
+    foto = request.files.get("foto_perfil")
+    usuarios = carregar_usuarios()
+    usuario = next((u for u in usuarios if u["id"] == session["user_id"]), None)
+    if usuario:
+        if nome:
+            usuario["name"] = nome
+            session["user_name"] = nome
+        if bio:
+            usuario["bio"] = bio
+        if foto and allowed_file(foto.filename):
+            filename = f"perfil_{usuario['id']}_{secure_filename(foto.filename)}"
+            save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            foto.save(save_path)
+            usuario["foto_perfil"] = f"img/uploads/{filename}"
+        # Atualiza o usuário na lista e salva
+        for idx, u in enumerate(usuarios):
+            if u["id"] == usuario["id"]:
+                usuarios[idx] = usuario
+                break
+        salvar_usuarios(usuarios)
+        flash("Perfil atualizado com sucesso!", "success")
+    else:
+        flash("Usuário não encontrado.", "danger")
+    return redirect(url_for("perfil"))
 
 
 # Caminho do arquivo JSON de publicações
@@ -170,7 +202,13 @@ def landing():
 
 @app.route('/perfil')
 def perfil():
-    return render_template('perfil.html')
+    if "user_id" not in session:
+        flash("Faça login para acessar seu perfil.", "warning")
+        return redirect(url_for("login"))
+    usuarios = carregar_usuarios()
+    usuario = next((u for u in usuarios if u["id"] == session["user_id"]), None)
+    foto_perfil = usuario["foto_perfil"] if usuario and "foto_perfil" in usuario else "img/img_feed/user_ex_feminino.jpg"
+    return render_template('perfil.html', usuario_nome=session.get("user_name"), usuario_id=session.get("user_id"), usuario_foto_perfil=foto_perfil)
 
 @app.route('/direct')
 def direct():
@@ -204,10 +242,15 @@ def publicar():
                 fotos_urls.append(f'img/uploads/{filename}')
 
     if texto:
+        # Buscar foto de perfil do usuário logado
+        usuarios = carregar_usuarios()
+        usuario = next((u for u in usuarios if u["id"] == session.get("user_id")), None)
+        foto_perfil = usuario.get("foto_perfil") if usuario and "foto_perfil" in usuario else "img/img_feed/user_ex_feminino.jpg"
         post = {
             'id': gerar_id(),
             'autor': session.get('user_name', 'Usuário'),
             'autor_id': session.get('user_id'),
+            'foto_perfil': foto_perfil,
             'categoria': categoria,
             'texto': texto,
             'fotos_urls': fotos_urls,
