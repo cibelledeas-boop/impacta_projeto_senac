@@ -1,3 +1,48 @@
+/* Modal de mensagens flash */
+.modal-flash {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10020;
+}
+.modal-flash-content {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    padding: 32px 24px;
+    min-width: 320px;
+    max-width: 90vw;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.modal-flash-message {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    background: #264d9e;
+    margin-bottom: 10px;
+}
+.btn {
+    background: #264d9e;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn:hover {
+    background: #1f4888;
+}
 * {
     margin: 0;
     padding: 0;

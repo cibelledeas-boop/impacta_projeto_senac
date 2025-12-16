@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/img_feed/simbolo-logo1.png') }}" sizes="192x192" />
     <title>Login</title>
 </head>
 <body>
     <section class="lado-a-lado">
         <header class="lado">
             <div class="left">
-                <img src="{{ url_for('static', filename='img/icon/WhatsApp Image 2025-11-11 at 20.19.46.jpeg') }}" alt="Imagem de destaque">
+                <img src="{{ url_for('static', filename='img/icon/bg-home.svg') }}" alt="Imagem de destaque">
             </div>
         </header>
 
@@ -56,15 +57,6 @@
                 <div class="linha">
                     <span></span>
                 </div>
-
-                <section class="social-login">
-                    <div class="social-login">
-                             {# <a href="{{ url_for('google_login') }}" class="social-btn">
-                                <img src="{{ url_for('static', filename='icon/pesquisa.png') }}" alt="Google">
-                                 Registrar com Google
-                             </a> #}
-                    </div>
-                </section>
             </div>
         </section>
     </section>

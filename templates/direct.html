@@ -57,49 +57,55 @@
                     </div>
                     
                     <ul>
-                        <li class="ativo">
-                            <div class="avatar"></div> 
-                            <div class="info">
-                                <strong>@amigolegal</strong>
-                                <p>Opa! Vamos conversar?</p>
-                            </div>
+                        {% for conversa in conversas %}
+                        {% set outro_id = (conversa.participantes[0] if conversa.participantes[1] == usuario_id else conversa.participantes[1]) %}
+                        {% set outro_usuario = usuarios | selectattr('id', 'equalto', outro_id) | list | first %}
+                        <li {% if conversa_selecionada and conversa.id == conversa_selecionada.id %}class="ativo"{% endif %}>
+                            <a href="{{ url_for('direct', user_id=outro_id) }}" style="text-decoration:none;color:inherit;display:flex;align-items:center;">
+                                <div class="avatar"></div>
+                                <div class="info">
+                                    <strong>@{{ outro_usuario.name if outro_usuario else 'Usuário' }}</strong>
+                                    <p>{% if conversa.mensagens %}{{ conversa.mensagens[-1].texto|truncate(30) }}{% else %}Nenhuma mensagem ainda{% endif %}</p>
+                                </div>
+                            </a>
                         </li>
-
-                        <li>
-                            <div class="avatar"></div>
-                            <div class="info">
-                                <strong>@impactasocial</strong>
-                                <p>Obrigado por participar!</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="avatar"></div>
-                            <div class="info">
-                                <strong>@clienteimportante_empresa</strong>
-                                <p>Mensagem longa de teste aqui...</p>
-                            </div>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
                 
                 <div class="dm-chat">
+                    {% if conversa_selecionada %}
                     <div class="chat-header">
                         <div class="avatar grande"></div>
                         <div>
-                            <h3>@amigolegal</h3> 
-                            <span>Ativo agora</span>
+                            <h3>@{{ (usuarios | selectattr('id', 'equalto', outro_id) | list | first).name }}</h3>
                         </div>
                     </div>
-
+                    <div class="chat-mensagens" style="max-height:300px;overflow-y:auto;">
+                        {% for msg in conversa_selecionada.mensagens %}
+                            <div class="msg {% if msg.remetente_id == usuario_id %}enviada{% else %}recebida{% endif %}">
+                                {{ msg.texto }}
+                                <span style="display:block;font-size:0.7em;color:#888;">{{ msg.timestamp }}</span>
+                            </div>
+                        {% else %}
+                            <div class="msg recebida">Nenhuma mensagem ainda.</div>
+                        {% endfor %}
+                    </div>
+                    <form class="chat-input" method="POST" action="{{ url_for('enviar_mensagem', conversa_id=conversa_selecionada.id) }}">
+                        <input type="text" name="mensagem" placeholder="Escreva uma mensagem..." required>
+                        <button type="submit">Enviar</button>
+                    </form>
+                    {% else %}
+                    <div class="chat-header">
+                        <div class="avatar grande"></div>
+                        <div>
+                            <h3>Selecione uma conversa</h3>
+                        </div>
+                    </div>
                     <div class="chat-mensagens">
                         <div class="msg recebida">Clique em uma conversa para começar o chat!</div>
                     </div>
-
-                    <form class="chat-input">
-                        <input type="text" placeholder="Escreva uma mensagem..." required>
-                        <button type="submit">Enviar</button>
-                    </form>
+                    {% endif %}
                 </div>
             </div>
             

@@ -1,135 +1,508 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Impacta</title>
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/img_feed/simbolo-logo1.png') }}" sizes="192x192" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impacta</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=Source+Sans+Pro:wght@300;400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/aos.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="{{ url_for('static', filename='js/svg-inject.min.js') }}"></script>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='svg/logoi.png') }}">
 </head>
+
 <body>
-<!--Header-->
-  <header>
-    <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/logo-impacta-identidade-visual.webp') }}" alt="Impacta Logo">
-    <nav>
-      <a href="{{ url_for('feed') }}">Feed</a>
-      <a href="{{ url_for('perfil') }}">Perfil</a>
-      <a href="{{ url_for('direct') }}">Direct</a>
-      <a href="{{ url_for('landing') }}">Landing</a>
-    </nav>
-    <div>
-      <a href="{{ url_for('feed') }}" class="btn" style="background: #FFBE01;">Entrar</a>
-      <a href="#" class="btn">Quero fazer parte</a>
+    <!--====== HEADER ======-->
+
+    <header id="header">
+        <!--====== navbar mobile ======-->
+        <nav class="navbar-mobile">
+            <div class="bx" id="bx"></div>
+            <div class="logo">
+                <a href="">
+                    <img src="{{ url_for('static', filename='svg/logoi.png') }}" alt="" onload="SVGInject(this)">
+                </a>
+            </div>
+            <a href="{{ url_for('login') }}">Login</a>
+        </nav>
+        <!--====== NAVBAR DESkTOP ======-->
+        <nav class="navbar-desktop" data-aos="fade-up">
+            <div class="navbar-desktop-item-1">
+                <div class="logo">
+                    <a href="">
+                        <img src="{{ url_for('static', filename='svg/logoi.png') }}" alt="" onload="SVGInject(this)">
+                    </a>
+                </div>
+                <ul class="menu-desktop">
+                    <li class="menu-item" id="menu-item-1">
+                        <a href="#impacta" class="nav-link-desktop">Impacta</a>
+                        <ul class="" id="dropdown-item-1">
+
+                        </ul>
+                    </li>
+                    <li class="menu-item" id="menu-item-2">
+                        <a href="#rede" class="nav-link-desktop">Rede Social</a>
+                        <ul class="" id="dropdown-item-2">
+
+                        </ul>
+                    </li>
+                    <li class="menu-item" id="menu-item-3">
+                        <a href="#pravoce" class="nav-link-desktop">Pra Você</a>
+                        <ul class="" id="dropdown-item-3">
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-desktop-item-2">
+                <a href="{{ url_for('register') }}" class="btn mr-2">Quero Impactar</a>
+                <a href="{{ url_for('login') }}">Login</a>
+            </div>
+        </nav>
+        <!--====== MENU MOBILE ======-->
+        <nav class="menu-mobile" id="menu-mobile">
+            <ul class="nav-list-mobile">
+                <li class="mb-1"><a href="" class="nav-link-mobile">Impacta</a></li>
+                <li class="mb-1"><a href="" class="nav-link-mobile">Rede Social</a></li>
+                <li class="mb-1"><a href="" class="nav-link-mobile">Pra Você</a></li>
+                <li class="mb-1"><a href="{{ url_for('register') }}" class="nav-link-mobile">Quero Impactar</a></li>
+                <li class="mt-3 flex-center">
+                    <a href=""><img src="{{ url_for('static', filename='svg/icon-facebook.svg') }}" class="mx-1" loading="lazy"
+                            onload="SVGInject(this)" /></a>
+                    <a href=""><img src="{{ url_for('static', filename='svg/icon-youtube.svg') }}" class="mx-1" loading="lazy"
+                            onload="SVGInject(this)" /></a>
+                    <a href=""><img src="{{ url_for('static', filename='svg/icon-instagram.svg') }}" class="mx-1" loading="lazy"
+                            onload="SVGInject(this)" /></a>
+                    <a href=""><img src="{{ url_for('static', filename='svg/icon-twitter.svg') }}" class="mx-1" loading="lazy" onload="SVGInject(this)" />
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--====== HERO ======-->
+
+    <div class="bg-home">
+        <img src="{{ url_for('static', filename='svg/bg-home.svg') }}" class="svg-bg-home" onload="SVGInject(this)" />
     </div>
-  </header>
-<!--Capa-->
-  <section class="hero">
-    <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/atendimento-cliente-entrega-caixa-voluntaria.webp') }}" alt="Voluntária sorridente entregando uma caixa para uma mulher mais velha, representando atendimento humanizado e ações solidárias.">
-    <div class="texto">
-      <h1><b>Doe, Compartilhe e Inspire:</b> A Plataforma Social das Boas Ações</h1>
-      <p>
-      Nossa plataforma foi criada para aproximar quem quer ajudar de quem mais precisa.
-      Aqui, você pode divulgar doações, encontrar campanhas solidárias e inspirar outras pessoas
-      a fazer o bem. Participe dessa comunidade de impacto e transforme boas intenções em ações reais.
-      </p>
-      <a href="#" class="btn">Cadastre-se</a>
-   </div>
-  </section>
-<!--Carrossel-->
-  <section class="carousel">
-    <div class="group">
-      <div class="card">
-        <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/abc.png') }}" alt="">
-      </div>
-      <div class="card">
-        <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/aldeias.png') }}" alt="">
-      </div>
-      <div class="card">
-        <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/amigos.jpg') }}" alt="">
-      </div>
-      <div class="card">
-        <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/aprender.png') }}" alt="">
-      </div>
-      <div class="card">
-        <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/dobem.jpg') }}" alt="">
-      </div>
-      <div class="card">
-        <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/farolnaquebrada.png') }}" alt="">
-      </div>
-    </div>  
-     <div aria-hidden class ="group">
-      <div class="card">
-        <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/abc.png') }}" alt="">
-      </div>
-      <div class="card">
-        <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/aldeias.png') }}" alt="">
-      </div>
-      <div class="card">
-        <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/amigos.jpg') }}" alt="">
-      </div>
-      <div class="card">
-        <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/aprender.png') }}" alt="">
-      </div>
-      <div class="card">
-        <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/dobem.jpg') }}" alt="">
-      </div>
-      <div class="card">
-        <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/farolnaquebrada.png') }}" alt="">
-      </div>  
-  </section>
-<!--Sessão sobre-->
-  <section class="sobre">
-    <div class="texto-sobre">
-        <h2>Sobre o <b>Impacta</b></h2>
-        <p>Somos uma rede social da solidariedade, criada para conectar quem quer ajudar com quem mais precisa.
-Nosso propósito é simples: dar visibilidade às doações e fortalecer a cultura do compartilhamento e da empatia.
+    <main class="container hero py-5" id="impacta">
+        <div class="flex-item-1 py-3" data-aos="fade-up" data-aos-delay="200">
+            <h1>Ser Impacta é reinventar seu impacto social.</h1>
+            <p class="my-2">
+                Conta com ações que ampliam a esperança, doações sem taxas e o melhor: impacte vidas direto pelo App.
+            </p>
+            <div class="flex-start" data-aos="fade-up" data-aos-delay="800">
+                <a href="{{ url_for('register') }}" class="btn">Quero Impactar</a>
+                <a href="#appstore"><img class="width-auto ml-3" src="{{ url_for('static', filename='svg/appstore.svg') }}" loading="lazy"
+                        onload="SVGInject(this)" /></a>
+                <a href="#playstore"><img class=" width-auto ml-3" src="{{ url_for('static', filename='svg/playstore.svg') }}" loading="lazy"
+                        onload="SVGInject(this)" /></a>
+            </div>
+        </div>
+        <div class="flex-center flex-item-3 div-card py-4 " data-aos="fade-up" data-aos-delay="400">
+            <img src="{{ url_for('static', filename='svg/icon-card.svg') }}" class="icon-card-hero dropshadow" loading="lazy" onload="SVGInject(this)" />
+            <img src="{{ url_for('static', filename='svg/icon-mobile.svg') }}" class="icon-mobile-hero dropshadow" loading="lazy"
+                onload="SVGInject(this)" />
+            <img src="{{ url_for('static', filename='svg/icon-contactless.svg') }}" class="icon-contactless-hero dropshadow" loading="lazy"
+                onload="SVGInject(this)" />
+            <div class="card"></div>
+        </div>
+    </main>
 
-Acreditamos que cada gesto de generosidade tem o poder de transformar vidas. Por isso, criamos um espaço digital onde pessoas, empresas e organizações podem divulgar campanhas, encontrar causas e inspirar novas ações solidárias.
+    <!----====== SECTION PEOPLE ======---->
 
-Aqui, você faz parte de uma comunidade comprometida em fazer o bem, onde cada clique se transforma em oportunidade, esperança e impacto real.
+    <section class="container" id="rede">
+        <div class="flex-item-4 flex-column" data-aos="fade-up" data-aos-delay="0">
+            <h5 class="mb-1 mt-2" data-aos="fade-up" data-aos-delay="100">Para todos</h5>
+            <h2 class="mb-1" data-aos="fade-up" data-aos-delay="200">Completo.</h2>
+            <p class="my-2" data-aos="fade-up" data-aos-delay="300">
+                Apoie quem precisa no seu dia a dia pelo celular. Sem burocracia, sem limites, sem complicações.
+                Contribua com causas reais de um jeito simples. Somos eficientes para você ajudar no que realmente
+                importa, sem qualquer taxa de participação.
+            </p>
+            <ul class="list">
+                <li class="list-item bg-icon-check" data-aos="fade-up" data-aos-delay="200">
+                    <strong class="mt-1" style="display: block;">100% gratuito.</strong>
+                    <p>
+                        Isso mesmo, você não paga nada para participar e apoiar projetos.
+                    </p>
+                </li>
+                <li class="list-item bg-icon-check" data-aos="fade-up" data-aos-delay="300">
+                    <strong class="mt-1" style="display: block;">Sem taxas ou cobranças.</strong>
+                    <p>
+                        Aqui você contribui apenas se quiser — sem custos adicionais.
+                    </p>
+                </li>
+                <li class="list-item bg-icon-check" data-aos="fade-up" data-aos-delay="400">
+                    <strong class="mt-1" style="display: block;">O melhor suporte de todos.</strong>
+                    <p>
+                        Segundo pesquisas, temos o suporte mais humano pra você continuar fazendo o bem.
+                    </p>
+                </li>
+            </ul>
+            <p data-aos="fade-up" data-aos-delay="500">
+                <a href="" class="link">Confira as ações</a>
+            </p>
+        </div>
+        <div class="flex-item-3 flex-column mx-2" data-aos="fade-up" data-aos-delay="400">
+            <img src="../static/svg/svg-people1.svg" loading="lazy" onload="SVGInject(this)" />
+        </div>
+        <div class="flex-item-1 flex-column mx-2 my-3" data-aos="fade-up" data-aos-delay="500">
+            <img src="../static/svg/svg-people2.svg" id="people2" alt="" onload="SVGInject(this)" />
+            <img src="../static/svg/svg-people3.svg" class="mx-2 my-2" loading="lazy" alt="" onload="SVGInject(this)" />
+        </div>
+    </section>
 
-Juntos, construímos uma rede de solidariedade que cresce a cada conexão.</p>
+    <!--========== SECTION BEST ==========-->
+    <section class="container">
+        <div class="best px-3 py-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="flex-auto m-2">
+                <h5 data-aos="fade-up" data-aos-delay="100">O melhor</h5>
+                <h2 data-aos="fade-up" data-aos-delay="200">Por que Impacta?</h2>
+            </div>
+            <div class="best-item flex-auto" data-aos="fade-up" data-aos-delay="300">
+                <img src="{{ url_for('static', filename='svg/icon-cash.svg') }}" class="icon w-auto" loading="lazy" onload="SVGInject(this)">
+                <p class="mt-2 bold">Doação que rende mais para quem precisa</p>
+            </div>
+            <div class="best-item flex-auto" data-aos="fade-up" data-aos-delay="400">
+                <img src="{{ url_for('static', filename='svg/icon-transfer.svg') }}" class="icon w-auto" loading="lazy" onload="SVGInject(this)" />
+                <p class="mt-2 bold">Doações e ajudas ilimitadas</p>
+            </div>
+            <div class="best-item flex-auto" data-aos="fade-up" data-aos-delay="500">
+                <img src="{{ url_for('static', filename='svg/icon-card.svg') }}" class="icon w-auto" loading="lazy" onload="SVGInject(this)">
+                <p class="mt-2 bold">Apoio e doações 100% gratuitas</p>
+            </div>
+            <div class="best-item flex-auto" data-aos="fade-up" data-aos-delay="600">
+                <img src="{{ url_for('static', filename='svg/icon-phone.svg') }}" class="icon w-auto" loading="lazy" onload="SVGInject(this)" />
+                <p class="mt-2 bold">O melhor suporte 24h do Brasil</p>
+            </div>
+        </div>
+    </section>
+
+    <!--========== SECTION DIGITAL ACCOUNT ==========-->
+    <section class="container">
+        <div class="flex-item-1 flex-center p-3 relative" data-aos="fade-up" data-aos-delay="0">
+            <img src="{{ url_for('static', filename='svg/Group 575.svg') }}" loading="lazy" onload="SVGInject(this)" />
+        </div>
+        <div class="flex-item-1" data-aos="fade-up" data-aos-delay="200">
+            <h5 class="mb-1 mt-2" data-aos="fade-up" data-aos-delay="100">Conta social</h5>
+            <h2 class="mb-1" data-aos="fade-up" data-aos-delay="200">Tudo pelo App.</h2>
+            <p class="my-2" data-aos="fade-up" data-aos-delay="300">
+                Nossa rede social solidária com milhares de pessoas unidas por causas reais em todo o Brasil. Apoie
+                projetos, faça doações, acompanhe ações em tempo real e interaja com quem também quer transformar vidas.
+                Tudo pelo aplicativo.
+            </p>
+            <ul class="list my-2">
+                <li class="my-2 list-item bg-icon-mobile" data-aos="fade-up" data-aos-delay="400">
+                    <strong class="mt-1" style="display: block;">Ajuda na palma da sua mão</strong>
+                    <p>
+                        Conta digital. Tudo pelo app, conectando você a quem mais precisa.
+                    </p>
+                </li>
+                <li class=" list-item bg-icon-time" data-aos="fade-up" data-aos-delay="500">
+                    <strong class="mt-1" style="display: block;">Sem filas ou burocracias</strong>
+                    <p>
+                        Investimos no melhor suporte pra isso. Não tem filas. Mais agilidade.
+                    </p>
+                </li>
+                <li class=" list-item bg-icon-config" data-aos="fade-up" data-aos-delay="600">
+                    <strong class="mt-1" style="display: block;">Configure tudo no app</strong>
+                    <p>
+                        Toda a configuração e acesso aos novos recursos a um clique
+                        de distância.
+                    </p>
+                </li>
+            </ul>
+            <p data-aos="fade-up" data-aos-delay="700">
+                <a href="" class="link">Segura e sem complicações</a>
+            </p>
+        </div>
+    </section>
+
+    <!--========== CARD ==========-->
+
+    <section class="container">
+        <div class="flex-item-3 flex-column mx-2" data-aos="fade-up" data-aos-delay="0">
+            <h5 class="mb-1 mt-2" data-aos="fade-up" data-aos-delay="100">seu carinho</h5>
+            <h2 class="mb-1" data-aos="fade-up" data-aos-delay="200">Crédito e débito.</h2>
+            <p class="my-2" data-aos="fade-up" data-aos-delay="300">
+                Aqui, você pode chamar ele de solidário. Além disso, pode chamar de moderno, gratuito e prático também.
+                Facilidade e segurança para você apoiar causas, ajudar projetos e gerar impacto real, tudo de forma
+                simples pelo aplicativo.
+            </p>
+            <ul class="list">
+                <li class="list-item bg-icon-contactless" data-aos="fade-up" data-aos-delay="400">
+                    <strong class="mt-1" style="display: block;">Tecnologia Contactless</strong>
+                    <p>
+                        Pagamentos por aproximação para agilizar sua contribuição no dia a dia. Rápido, seguro e sem
+                        complicação.
+                    </p>
+                </li>
+                <li class="list-item bg-icon-card" data-aos="fade-up" data-aos-delay="500">
+                    <strong class="mt-1" style="display: block;">Cartão virtual</strong>
+                    <p>
+                        Aceitamos cartão virtual para você fazer suas doações com mais segurança e praticidade.
+                    </p>
+                </li>
+            </ul>
+            <p data-aos="fade-up" data-aos-delay="600">
+                <a href="" class="link">Saiba mais</a>
+            </p>
+        </div>
+        <div class="flex-item-1 flex-center p-3" data-aos="fade-up" data-aos-delay="200">
+            <img src="{{ url_for('static', filename='svg/fignu3.svg') }}" loading="lazy" onload="SVGInject(this)" />
+
+        </div>
+    </section>
+    <!--========== SECTION SLIDER ==========-->
+    <section class="box" data-aos="fade-up" data-aos-delay="0">
+        <h5 class="mb-1 mt-2" data-aos="fade-up" data-aos-delay="100">depoimentos</h5>
+        <h2 class="mb-1" data-aos="fade-up" data-aos-delay="200">Todos amam impactar</h2>
+    </section>
+    <section class="container-swiper hidden" data-aos="fade-up" data-aos-delay="200">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="photo-profile my-1 photo-1"></div>
+                    <h4 class="my-1">Jorge Silva</h4>
+                    <p class="my-1">
+                        O Impacta superou minhas expectativas!
+                        Ficou fácil fazer o bem, sem confusão,
+                        e a plataforma é tão intuitiva que dá gosto de usar. Estou impressionado!
+                    </p>
+                </div>
+                <div class="swiper-slide">
+                    <div class="photo-profile my-1 photo-2"></div>
+                    <h4 class="my-1">Anna Keller</h4>
+                    <p class="my-1">
+                        Nunca imaginei que ajudar pudesse ser tão simples.
+                        O Impacta trouxe facilidade e eficiência para minhas ações solidárias.
+                    </p>
+                </div>
+                <div class="swiper-slide">
+                    <div class="photo-profile my-1 photo-3"></div>
+                    <h4 class="my-1">Gabriela Shuzz</h4>
+                    <p class="my-1">
+                        É incrível como o Impacta se encaixou no meu dia a dia.
+                        Ajudar ficou ágil, prático e totalmente acessível em um só lugar!
+                    </p>
+                </div>
+                <div class="swiper-slide">
+                    <div class="photo-profile my-1 photo-4"></div>
+                    <h4 class="my-1">Lia Vieira</h4>
+                    <p class="my-1">
+                        O Impacta facilita meu dia a dia de um jeito
+                        que eu nem sabia que precisava. É leve e intuitivo ajudar por aqui!
+                    </p>
+                </div>
+                <div class="swiper-slide">
+                    <div class="photo-profile my-1 photo-5"></div>
+                    <h4 class="my-1">Théo Gomes</h4>
+                    <p class="my-1">
+                        O Impacta simplificou minha rotina solidária.
+                        Nunca foi tão fácil e conveniente ajudar quem precisa. Top!
+                    </p>
+                </div>
+                <div class="swiper-slide">
+                    <div class="photo-profile my-1 photo-6"></div>
+                    <h4 class="my-1">Marcela Sousa</h4>
+                    <p class="my-1">
+                        Meu dia a dia ficou mais leve com o Impacta.
+                        Adeus complicação, olá facilidade para ajudar!
+                        Uma escolha da qual não me arrependo.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="button-next"></div>
+        <div class="button-prev"></div>
+    </section>
+
+    <!--========== SECTION APP ==========-->
+
+    <section class="container">
+        <div class="flex-item-3 flex-column mx-2" data-aos="fade-up" data-aos-delay="0">
+            <h5 class="mb-1 mt-2" data-aos="fade-up" data-aos-delay="100">faça sua conta</h5>
+            <h2 class="mb-1" data-aos="fade-up" data-aos-delay="200">Baixe. É gratuito.</h2>
+            <p class="my-2" data-aos="fade-up" data-aos-delay="300">
+                Vamos lá, junte-se a milhares de pessoas que escolheram o Impacta.
+                Conte com a rede social que mais conecta quem quer ajudar.
+                É de graça. É para todos. Clique e baixe o App.
+            </p>
+            <div class="flex-start mt-2" data-aos="fade-up" data-aos-delay="400">
+                <a href=""><img class="width-auto button"
+                        style="filter: drop-shadow(0px 16px 24px rgba(80, 130, 220, 0.25));" src="{{ url_for('static', filename='svg/app-store.svg') }}"
+                        loading="lazy" onload="SVGInject(this)" /></a>
+                <a href=""><img class=" width-auto button ml-2"
+                        style="filter: drop-shadow(0px 16px 24px rgba(80, 130, 220, 0.25));" src="{{ url_for('static', filename='svg/google-play.svg') }}"
+                        loading="lazy" onload="SVGInject(this)" /></a>
+            </div>
+        </div>
+        <div class="flex-item-1 flex-center mx-3" data-aos="fade-up" data-aos-delay="300">
+            <img src="{{ url_for('static', filename='svg/teste.svg') }}" loading="lazy" onload="SVGInject(this)" />
+        </div>
+    </section>
+    <!--========== SECTION INVITE ==========-->
+
+    <div class="bg-invite">
+        <img src="{{ url_for('static', filename='svg/fignu5.svg') }}" class="svg-bg-invite" loading="lazy" onload="SVGInject(this)" />
+        <section class="container">
+            <div class="flex-item-1 flex-center flex-column mx-2" data-aos="fade-up" data-aos-delay="200">
+                <h5 class="mb-1 mt-2">Impacta</h5>
+                <h2 class="mb-1 text-center">O melhor das redes de impacto. Pra você.</h2>
+                <p class="my-2 text-center">
+                    Feito especialmente para você, oferece conveniência e agilidade para apoiar causas no seu dia a dia.
+                    Esqueça as complicações e descubra a liberdade de fazer o bem de forma simples e rápida.
+                    Transforme vidas e participe de iniciativas que realmente importam.
+                    Sua solidariedade, suas escolhas, agora ao alcance de um toque.
+                </p>
+                <div class="my-2" data-aos="fade-up" data-aos-delay="400">
+                    <a href="{{ url_for('register') }}" class="btn">Quero Impactar</a>
+                </div>
+            </div>
+        </section>
     </div>
-    <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/profissionais-saude-sucesso-colaboracao.webp') }}" alt="">
-  </section>
-  <!--Passo a passo-->
-  <section class="conta">
-    <h2>Como abrir <b>sua conta</b></h2>
-    <div class="container-card">
-      <div class="carD">
-        <img class="imagem" src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/icone-computador-tecnologia-monitor.webp') }}" alt="">
-        <h3>Passo 1: Acesse o site</h3>
-        <p>clique em “Quero fazer parter” para iniciar o processo de criação da sua conta.</p>
-      </div>
-      <div class="carD">
-         <img class="imagem" src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/icone-formulario-registro-cadastro.webp') }}" alt="">
-        <h3>Passo 2: Preencha seus dados</h3>
-        <p>Informe suas informações básicas, como nome, e-mail, CPF e telefone, e crie uma senha de acesso segura.</p>
-      </div>
-      <div class="carD">
-         <img class="imagem" src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/icone-check-validacao-sucesso.webp') }}" alt=""style="width: 26%;">
-        <h3>Passo 3: Confirme o cadastro</h3>
-        <p>Verifique seu e-mail ou SMS para confirmar o cadastro e pronto! Agora você já pode acessar e usar todos os recursos da plataforma.</p>
-      </div>
-    </div>
-  </section>
-  <!--Formulário-->
-  <section class="formulario">
-    <img src="{{ url_for('static', filename='img/img_landing/projeto_impacta_ladingpage/img/mulher-sorrindo-chamada-telefone-oculos.webp') }}" alt="moça sorrindo ao telefone.">
-    <div id = "caixa" class="form">
-     <form action="#" method="POST">
-  <label for="nome"class="cor">Nome:</label>
-  <input type="text" id="nome" name="nome" required>
 
-  <label for="email" class="cor">E-mail:</label>
-  <input type="email" id="email" name="email" required>
 
-  <label for="msg"class="cor">Mensagem:</label>
-  <textarea id="msg" name="mensagem" required></textarea>
+    <!--====== FOOTER ======-->
 
-  <button type="submit">Enviar</button>
-</form>
-   </div>
-  </section>
+    <footer>
+
+        <section class="container flex-top">
+
+            <div class="ml-3">
+
+                <h4 class="color-white">Impacta</h4>
+
+                <ul class="list mt-2 pt-2">
+
+                    <li><a href="">Sobre nós</a></li>
+
+                    <li><a href="">Carreiras</a></li>
+
+                    <li><a href="">Perguntas frequentes</a></li>
+
+                    <li><a href="">Contato</a></li>
+
+                    <li><a href="">impresa</a></li>
+
+                </ul>
+
+            </div>
+
+            <div class="ml-3">
+
+                <h4 class="color-white">Produtos</h4>
+
+                <ul class="list mt-2 pt-2">
+
+                    <li><a href="">Conta Digital</a></li>
+
+                    <li><a href="">000000000</a></li>
+
+                    <li><a href="">Rewards</a></li>
+
+                    <li><a href="">0000000000</a></li>
+
+                    <li><a href="">000000000</a></li>
+
+                </ul>
+
+            </div>
+
+            <div class="ml-3">
+
+                <h4 class="color-white">Fale Conosco</h4>
+
+                <ul class="list mt-2 pt-2">
+
+                    <li><a href="">0800 608 6236</a></li>
+
+                    <li><a href="">meajuda@impacta.com.br</a></li>
+
+                    <li><a href="">Atendimento 24h</a></li>
+
+                </ul>
+            </div>
+            <div class="ml-3">
+                <h4 class="color-white">Explore</h4>
+                <ul class="list mt-2 pt-2">
+                    <li><a href="">Comunidade</a></li>
+                    <li><a href="">Blog</a></li>
+                    <li><a href="">Newsletter</a></li>
+                </ul>
+            </div>
+
+            <div class="ml-3">
+                <h4 class="color-white weight-light">Baixe o App</h4>
+                <div class="flex-start mt-2 pt-2">
+                    <a href=""><img class="width-auto button"
+                            style="filter: drop-shadow(0px 16px 24px rgba(80, 130, 220, 0.25));" src="{{ url_for('static', filename='svg/app-store.svg') }}"
+                            loading="lazy" onload="SVGInject(this)" /></a>
+
+                    <a href=""><img class=" width-auto button ml-2"
+                            style="filter: drop-shadow(0px 16px 24px rgba(80, 130, 220, 0.25));"
+                            src="{{ url_for('static', filename='svg/google-play.svg') }}" loading="lazy" onload="SVGInject(this)" /></a>
+
+                </div>
+
+            </div>
+        </section>
+        <section class="container flex-spacebetween py-3 bt-purple">
+            <div class="flex-start">
+                <img src="{{ url_for('static', filename='svg/logoi 1.svg') }}" style="max-width: 96px;" alt="" onload="SVGInject(this)">
+                <p class="color-white ml-2">
+                    Impacta Tecnologia Ltda. 12.345.678/0001-90<br>
+                    Rua Solidariedade, 100 – Brasília, DF – 70000-000
+                </p>
+            </div>
+            <div class="footer-flex-2">
+                <a href=""> <img src="{{ url_for('static', filename='svg/icon-facebook.svg') }}" class="icon-networks mx-1" alt=""
+                        onload="SVGInject(this)" /></a>
+                <a href=""><img src="{{ url_for('static', filename='svg/icon-youtube.svg') }}" class="icon-networks mx-1" alt=""
+                        onload="SVGInject(this)" /></a>
+                <a href=""><img src="{{ url_for('static', filename='svg/icon-instagram.svg') }}" class="icon-networks mx-1" alt=""
+                        onload="SVGInject(this)" /></a>
+                <a href=""> <img src="{{ url_for('static', filename='svg/icon-twitter.svg') }}" class="icon-networks mx-1" alt=""
+                        onload="SVGInject(this)" /></a>
+            </div>
+        </section>
+    </footer>
+
+    <!----====== JS ======---->
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        AOS.init({
+            easing: "ease-out-quart", // curva de transição 
+            duration: 800, // duração de transição
+            once: true // animar só uma vez
+        });
+    </script>
+
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 'auto',
+            spaceBetween: 40,
+            grabCursor: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                type: 'progressbar',
+            },
+            navigation: {
+                nextEl: '.button-next',
+                prevEl: '.button-prev',
+            },
+        });
+    </script>
 </body>
+
 </html>

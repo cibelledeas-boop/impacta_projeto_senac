@@ -4,6 +4,33 @@
     "name": "Cibelle de Assis Silva",
     "email": "cibelledea.s@gmail.com",
     "password_hash": "scrypt:32768:8:1$tMjdxuOdW3AFrsH2$dd323f8603860ce1b04830793ca8d46c27e837f7dec73ca4b37df2c639f0e2913062b9e84534208c88b51599a1af843462836ef465edff53ec7ee7f098c4b37d",
-    "foto_perfil": "img/img_feed/user_ex_feminino.jpg"
+    "foto_perfil": "img/img_feed/user_cibelle.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Ellisa Rocha",
+    "email": "ellisarocha1188@gmail.com",
+    "password_hash": "scrypt:32768:8:1$PK0II394RFIMJ7Ld$4805b7e486a7601be39b867f2618465e3e8294368bf463bbcd6f617fb33a89e6aa1ee0138d9de0581f389e515903621ba9ced06c40eda2a7335df31a5cc32e08",
+    "foto_perfil": "img/img_feed/user_ellisa.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Laura Rocha",
+    "email": "rochaellisa05@gmail.com",
+    "password_hash": "scrypt:32768:8:1$xOrdP7FmTsmvLtsY$d4f095de8a6d4b88eb5db0b44395cd115b7fbe296b308b767bbcf37e7112ceba7bd077cd59c0b606a5e966086e97bb7c92ba57431de5ed88a1f6e7cddd7dafec",
+    "foto_perfil": "img/img_feed/user_padrao_noFoto.png",
+    "tipo": "voluntario",
+    "bio": "",
+    "data_cadastro": "11/12/2025"
+  },
+  {
+    "id": 4,
+    "name": "Nicole Messias",
+    "email": "messiasnicole3@gmail.com",
+    "password_hash": "scrypt:32768:8:1$Nk19G3EWRKUW1xnI$042d8982691cc8e2d6b75297be55173d36975ead340249b40bdacdc1bbe60a9f7bb34d45240b5e709f4e32c87dd09b8edc536a26d81d775970f2df53205ac38f",
+    "foto_perfil": "img/img_feed/user_nicole.jpg",
+    "tipo": "voluntario",
+    "bio": "",
+    "data_cadastro": "11/12/2025"
   }
 ]

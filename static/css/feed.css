@@ -1,3 +1,86 @@
+/* Modal de confirmação de exclusão */
+.modal-excluir {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10020;
+}
+.modal-content {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 32px 24px;
+  min-width: 320px;
+  max-width: 90vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.modal-content h3 {
+  color: #264d9e;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+.modal-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+.btn-danger {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-danger:hover {
+  background: #c0392b;
+}
+/* Flash messages container */
+.flash-container {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10010;
+  min-width: 320px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+
+.flash-message {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  color: #fff;
+  background: #264d9e;
+  animation: fadeInDown 0.4s;
+}
+.flash-success,
+.flash-danger,
+.flash-warning,
+.flash-info {
+  background: #264d9e !important;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 /* VARIÁVEIS DE COR */
 :root {
   /* Primary */
@@ -1268,19 +1351,26 @@ body.no-scroll,
 }
 
 /* Item individual do menu (REDUZIDO E ALINHADO À ESQUERDA) */
+
 .menu-lateral-esquerdo.instagram-style .menu-item {
-    display: flex;
-    align-items: center;
-    /* Reduzindo o espaçamento entre ícone e texto */
-    gap: 14px; 
-    /* Padronizando o padding de volta para o alinhamento esquerdo (ex: 12px de padding lateral) */
-    padding: 12px; 
-    border-radius: 10px; /* Reduzindo o arredondamento */
-    text-decoration: none;
-    color: var(--text-700); 
-    /* Reduzindo o tamanho do texto */
-    font-size: 16px; 
-    transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text-700);
+  font-size: 16px;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.menu-lateral-esquerdo.instagram-style .menu-item:hover {
+  background: var(--surface-200);
+  color: var(--color-primary-600);
+  transform: scale(1.05);
+}
+.menu-lateral-esquerdo.instagram-style .menu-item:hover i {
+  color: var(--color-primary-600);
 }
 
 /* ÍCONE (REDUZIDO) */

@@ -12,14 +12,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Ícone do Site -->
-  <link rel="icon" href="{{ url_for('static', filename='img/icon/blog-logo.svg') }}" type="image/x-icon">
+ <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/img_feed/simbolo-logo1.png') }}" sizes="192x192" />
 </head>
 
 <body>
   <div class="lado-a-lado">
     <header class="lado">
       <div class="left">
-        <img src="{{ url_for('static', filename='img/icon/WhatsApp Image 2025-11-11 at 20.19.46.jpeg') }}" alt="Imagem esquerda">
+        <img src="{{ url_for('static', filename='img/icon/bg-home.svg') }}" alt="Imagem esquerda">
       </div>
     </header>
 
@@ -53,6 +53,72 @@
           <div class="input-group">
             <input type="text" id="nome" name="name" placeholder="Nome Completo" required>
           </div>
+             <div class="input-group">
+  <input 
+    type="text" 
+    id="doc" 
+    name="documento" 
+    placeholder="Digite CPF ou CNPJ" 
+    required
+  >
+</div>
+
+<script>
+function aplicarMascara(valor) {
+    // Remove tudo que não for número
+    valor = valor.replace(/\D/g, "");
+
+    if (valor.length <= 11) {
+        // CPF: 000.000.000-00
+        valor = valor.replace(/^(\d{3})(\d)/, "$1.$2");
+        valor = valor.replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3");
+        valor = valor.replace(/\.(\d{3})(\d)/, ".$1-$2");
+    } else {
+        // CNPJ: 00.000.000/0000-00
+        valor = valor.replace(/^(\d{2})(\d)/, "$1.$2");
+        valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+        valor = valor.replace(/\.(\d{3})(\d)/, ".$1/$2");
+        valor = valor.replace(/(\d{4})(\d)/, "$1-$2");
+    }
+
+    return valor;
+}
+
+const doc = document.getElementById("doc");
+
+doc.addEventListener("input", () => {
+    let valor = doc.value;
+
+    // Remove qualquer coisa que não seja número
+    valor = valor.replace(/\D/g, "");
+
+    // Limita no máximo 14 dígitos (CNPJ)
+    if (valor.length > 14) {
+        valor = valor.substring(0, 14);
+    }
+
+    // Aplica máscara CPF/CNPJ automaticamente
+    doc.value = aplicarMascara(valor);
+});
+
+doc.addEventListener("blur", () => {
+    const valor = doc.value.replace(/\D/g, ""); // apenas números
+
+    if (valor.length === 11) {
+        console.log("Reconhecido como CPF:", valor);
+        doc.setCustomValidity("");
+    } 
+    else if (valor.length === 14) {
+        console.log("Reconhecido como CNPJ:", valor);
+        doc.setCustomValidity("");
+    } 
+    else {
+        doc.setCustomValidity("Digite um CPF (11 dígitos) ou CNPJ (14 dígitos).");
+        doc.reportValidity();
+    }
+});
+</script>
+    
 
           <div class="input-group">
             <input type="password" id="senha" name="password" placeholder="Digite sua senha" required>
@@ -72,17 +138,6 @@
 
           <button type="submit" class="btn">Criar conta</button>
         </form>
-
-        <div class="linha"><span></span></div>
-
-        <div class="social-login">
-          <button class="social-btn">
-            <img src="{{ url_for('static', filename='icon/pesquisa.png') }}" alt="Google">
-            Registrar com Google
-          </button>
-          
-        </div>
-
       </div>
     </section>
 

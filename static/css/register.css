@@ -1,3 +1,48 @@
+/* Modal de mensagens flash */
+.modal-flash {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10020;
+}
+.modal-flash-content {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 32px 24px;
+  min-width: 320px;
+  max-width: 90vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.modal-flash-message {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  background: #264d9e;
+  margin-bottom: 10px;
+}
+.btn {
+  background: #264d9e;
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn:hover {
+  background: #1f4888;
+}
  * {
    margin: 0;
    padding: 0;
@@ -76,160 +121,84 @@
  }
 
  .logo {
-   width: 100%;
-   display: flex;
-   justify-content: left;
-   /* centraliza horizontal */
-   margin-bottom: 20px;
-   /* espaço entre logo e o h2 */
- }
+    width: 100%;
+    display: flex;
+    justify-content: left ; /* centraliza horizontal */
+    margin-bottom: 20px; /* espaço entre logo e o h2 */
+}
 
- .logo .loguin {
-   width: 170px;
-   /* ajuste ideal para telas de login */
-   height: auto;
-   object-fit: contain;
- }
+.logo .loguin {
+    width: 170px; /* ajuste ideal para telas de login */
+    height: auto;
+    object-fit: contain;
+}
 
- .container {
-   flex: 1;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background-color: #fff;
- }
+/* Container maior e com laterais mais largas */
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 18px 20px;  /* laterais = 1 dedo */
+    transform: scale(0.97); /* maior do que antes */
+    transform-origin: top center;
+}
 
+/* Título maior */
+.container h2 {
+  margin-bottom: 28px;
+  font-size: 30px; /* antes 28px */
+  color: #333;
+}
 
- .container h2 {
-   text-align: left;
-   margin-bottom: 10px;
-   font-size: 32px;
-   color: #333;
- }
+/* Parágrafos */
+.container p {
+  margin-top: 22px;
+  margin-bottom: 22px;
+  font-size: 16px; /* volta ao tamanho original */
+  font-weight: 500;
+  color: #000;
+}
 
- .container p {
-   text-align: left;
-   margin-top: 24px;
-   margin-bottom: 25px;
-   font-size: 16px;
-   font-weight: 500;
-   color: #000;
- }
+.input-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
 
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #0A3D62;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    outline: none;
+    transition: border-color .2s;
+}
 
- .input-group {
-   text-align: left;
-   margin-bottom: 18px;
- }
+.input-group input:focus {
+    border-color: #074173;
+    box-shadow: 0 0 4px rgba(10, 61, 98, 0.4);
+}
 
+/* Checkbox */
+.checkbox {
+  font-size: 13px;
+}
 
- /*Não há necessidade pois não tem label*/
- /* .input-group label {
-   font-size: 14px;
-   color: #444;
-   margin-bottom: 6px;
-   display: block;
- }*/
+.checkbox label::before {
+  width: 16px;
+  height: 16px; /* padrão confortável */
+}
 
- .input-group input {
-   width: 100%;
-   padding: 12px;
-   border: 2px solid #0A3D62;
-   border-radius: 8px;
-   font-size: 1.1rem;
-   outline: none;
-   transition: border-color .2s;
- }
+/* Botão maior */
+.btn {
+  margin-top: 22px;
+  padding: 14px 30px;
+  font-size: 16px;
+  border-radius: 8px;
+}
 
- .input-group input:focus {
-   border-color: #074173;
-   box-shadow: 0 0 4px rgba(10, 61, 98, 0.4);
- }
-
-
- #two {
-   display: flex;
-   gap: 15px;
- }
-
- .checkbox {
-   display: flex;
-   align-items: center;
-   gap: 10px;
-   font-size: 12px;
-   color: #444;
-   white-space: nowrap;
-   /* opcional: impede quebra de linha */
-   position: relative;
- }
-
- /* Esconde visualmente o input, mas mantém acessibilidade/foco */
- .checkbox input[type="checkbox"] {
-   display: none;
- }
-
- /* Label como container clicável */
- .checkbox label {
-   display: flex;
-   align-items: center;
-   cursor: pointer;
- }
-
- /* Caixa padrão (cinza) */
- .checkbox label::before {
-   content: "";
-   display: inline-block;
-   width: 16px;
-   height: 16px;
-   border: 2px solid #c4c8cc;
-   border-radius: 4px;
-   background: #fff;
-   margin-right: 8px;
-   transition: all .18s ease;
- }
-
- /* Hover: fica azul só quando o mouse está sobre o label */
- .checkbox label:hover::before {
-   border-color: #1B69D2;
-
- }
-
- /* Quando marcado: azul + check (SVG inline) */
- .checkbox input[type="checkbox"]:checked+label::before {
-   background: #1B69D2;
-   border-color: #1B69D2;
-   background-image: url("data:image/svg+xml,%3Csvg fill='white' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.173 12.414a1 1 0 0 1-1.414 0L2.05 9.707a1 1 0 1 1 1.414-1.414l2.122 2.122 6.364-6.364a1 1 0 1 1 1.414 1.414L6.173 12.414z'/%3E%3C/svg%3E");
-   background-repeat: no-repeat;
-   background-position: center;
-   background-size: 16px;
-   /*seta ajusta*/
- }
-
- /* Espaçamento para links */
- .checkbox label a {
-   margin: 0 4px;
-   color: #074173;
-   text-decoration: none;
- }
-
-
- .btn {
-   display: inline-block;
-   margin-top: 24px;
-   border: none;
-   border-radius: 32px;
-   padding: 1rem 2rem;
-   font-weight: 700;
-   font-size: 16px;
-   width: 100%;
-   cursor: pointer;
-   background: linear-gradient(224.78deg, #5390E3 8.12%, #1357B3 92.21%);
-   border-radius: 8px;
-   color: #fefbff;
-   padding: 12px 32px;
-   transition: 0.3s ease;
-   background: linear-gradient(224.78deg, #0A3D62 8.12%, #074173 92.21%);
- }
 
  .btn:hover {
    box-shadow: 0 15px 20px rgba(7, 65, 115, 0.25);

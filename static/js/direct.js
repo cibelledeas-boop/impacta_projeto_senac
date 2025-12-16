@@ -31,15 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
              chatHeader.textContent = nome;
         }
 
-        // Simula o histórico de mensagens
+        // Não insere mensagens fake
         const chatMensagens = dmChat.querySelector('.chat-mensagens');
         if (chatMensagens) {
-            chatMensagens.innerHTML = `
-                <div class="msg recebida">Olá ${nome.replace('@', '')}! Como posso te ajudar hoje?</div>
-                <div class="msg enviada">Gostaria de saber mais sobre o projeto.</div>
-                <div class="msg recebida">Claro! O objetivo é ${ativa ? 'manter contato!' : 'compartilhar ideias.'}</div>
-            `;
-            // Scroll para o final
+            chatMensagens.innerHTML = '';
             chatMensagens.scrollTop = chatMensagens.scrollHeight;
         }
         

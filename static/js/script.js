@@ -39,17 +39,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   likeButtons.forEach((btn) => {
     const countSpan = btn.querySelector(".count");
+    const postId = btn.getAttribute("data-post-id");
 
     btn.addEventListener("click", () => {
-      const isLiked = btn.classList.toggle("liked");
-      let currentCount = parseInt(countSpan.textContent);
-
-      if (isLiked) {
-        countSpan.textContent = currentCount + 1;
-        createFloatingHeart(btn);
-      } else {
-        countSpan.textContent = currentCount - 1;
-      }
+      fetch(`/curtir/${postId}`, { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+          if (data.curtido) {
+            btn.classList.add("liked");
+          } else {
+            btn.classList.remove("liked");
+          }
+          countSpan.textContent = data.curtidas;
+        });
     });
   });
 
@@ -204,16 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-function createFloatingHeart(button) {
-  const heart = document.createElement("span");
-  heart.textContent = "❤️";
-  heart.classList.add("floating-heart");
-  button.appendChild(heart);
 
-  setTimeout(() => {
-    heart.remove();
-  }, 800);
-}
 
 //Leaflet + OSM (Mapa Pontos de Coleta) 
 window.addEventListener('DOMContentLoaded', function() {

@@ -1,1 +1,0 @@
-# Inicialização do app Flask

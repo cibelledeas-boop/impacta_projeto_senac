@@ -51,11 +51,41 @@
                 <h3><strong>Publicações</strong></h3>
             </div>
 
-            <div class="posts-grid">
-                <div class="post-item">
-                    <img src="{{ url_for('static', filename='img/img_feed/7101122.jpg') }}">
-                </div>
-                </div>
+                        <div class="posts-grid">
+                                {% if publicacoes %}
+                                    {% for post in publicacoes %}
+                                                                                {% if post.fotos_urls and post.fotos_urls|length > 0 %}
+                                                                                        {% for url in post.fotos_urls %}
+                                                                                                <div class="post-item">
+                                                                                                        <img src="{{ url_for('static', filename=url) }}" alt="Imagem da publicação">
+                                                                                                        {% if post.comentarios and post.comentarios|length > 0 %}
+                                                                                                        <ul class="perfil-comments">
+                                                                                                                {% for comentario in post.comentarios %}
+                                                                                                                <li>
+                                                                                                                    <b>{{ comentario.autor }}:</b> {{ comentario.texto }}
+                                                                                                                    {% set interesse = false %}
+                                                                                                                    {% for palavra in ['quero', 'interesse', 'posso buscar', 'tenho interesse', 'me interesso', 'aceito', 'gostaria'] %}
+                                                                                                                        {% if palavra in comentario.texto|lower %}
+                                                                                                                            {% set interesse = true %}
+                                                                                                                        {% endif %}
+                                                                                                                    {% endfor %}
+                                                                                                                    {% if usuario_id == post.autor_id and comentario.autor_id != usuario_id and interesse %}
+                                                                                                                        <form method="GET" action="{{ url_for('direct_novo', user_id=comentario.autor_id) }}" style="display:inline;">
+                                                                                                                            <button type="submit" class="btn btn-primary" style="margin-left:8px; font-size:0.9em; padding:2px 10px;">Conversar</button>
+                                                                                                                        </form>
+                                                                                                                    {% endif %}
+                                                                                                                </li>
+                                                                                                                {% endfor %}
+                                                                                                        </ul>
+                                                                                                        {% endif %}
+                                                                                                </div>
+                                                                                        {% endfor %}
+                                                                                {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="sem-publicacoes">Nenhuma publicação com imagem encontrada.</p>
+                                {% endif %}
+                        </div>
         </section>
 
     </main>

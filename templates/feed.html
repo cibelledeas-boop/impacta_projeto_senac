@@ -13,6 +13,28 @@
 </head>
 
 <body>
+  <!-- Container de mensagens flash -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-container">
+        {% for category, message in messages %}
+          <div class="flash-message flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  <!-- Modal de confirmação de exclusão -->
+  <div id="modal-excluir" class="modal-excluir" style="display:none;">
+    <div class="modal-content">
+      <h3>Tem certeza que deseja excluir este post?</h3>
+      <div class="modal-actions">
+        <button id="cancelar-excluir" class="btn">Cancelar</button>
+        <form id="form-excluir-post" method="POST" style="display:inline;">
+          <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+      </div>
+    </div>
+  </div>
   <aside class="menu-lateral-esquerdo instagram-style">
           <img src="{{ url_for('static', filename='img/img_feed/impactaimg.jpg') }}" alt="Logo Impacta" class="logo" />
 
@@ -105,11 +127,47 @@
               <span class="badge">{{ post.categoria }}</span>
             </div>
             <p class="timestamp">{{ post.timestamp }}</p>
-            <span class="post-id">ID: {{ post.id }}</span>
+
           </div>
+          {% if usuario_id == post.autor_id %}
           <button class="action-btn delete-post-btn" data-post-id="{{ post.id }}" title="Excluir post" style="margin-left:auto;">
             <i data-lucide="trash-2"></i>
           </button>
+          {% else %}
+          <button class="action-btn report-post-btn" data-post-id="{{ post.id }}" title="Reportar post" style="margin-left:auto;">
+            <i class="fa-solid fa-flag"></i>
+          </button>
+          {% endif %}
+          <!-- Modal de confirmação de denúncia (fora do loop) -->
+          <div id="modal-reportar" class="modal-excluir" style="display:none;">
+            <div class="modal-content">
+              <h3>Tem certeza que deseja reportar este post como inadequado?</h3>
+              <div class="modal-actions">
+                <button id="cancelar-reportar" class="btn">Cancelar</button>
+                <form id="form-reportar-post" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-danger">Reportar</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        <script>
+        // Botão de reportar post (modal único)
+        document.addEventListener('DOMContentLoaded', function() {
+          document.querySelectorAll('.report-post-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+              var postId = btn.getAttribute('data-post-id');
+              var modal = document.getElementById('modal-reportar');
+              var form = document.getElementById('form-reportar-post');
+              form.action = '/reportar/' + postId;
+              modal.style.display = 'flex';
+            });
+          });
+          document.getElementById('cancelar-reportar').onclick = function() {
+            document.getElementById('modal-reportar').style.display = 'none';
+          };
+        });
+        </script>
         </div>
         <div class="content">
           <p>{{ post.texto }}</p>
@@ -122,7 +180,7 @@
           {% endif %}
         </div>
         <div class="actions">
-          <button class="action-btn like-btn" data-post-id="{{ post.id }}">
+          <button class="action-btn like-btn{% if post.curtidores is defined and usuario_id in post.curtidores %} liked{% endif %}" data-post-id="{{ post.id }}">
             <i data-lucide="heart"></i>
             <span class="count">{{ post.curtidas }}</span>
           </button>
@@ -137,6 +195,22 @@
             {% for comentario in post.comentarios %}
             <li>
               <b>{{ comentario.autor }}:</b> {{ comentario.texto }}
+              {% set interesse = false %}
+              {% for palavra in ['quero', 'interesse', 'posso buscar', 'tenho interesse', 'me interesso', 'aceito', 'gostaria'] %}
+                {% if palavra in comentario.texto|lower %}
+                  {% set interesse = true %}
+                {% endif %}
+              {% endfor %}
+              {# DEBUG: Mostra ids para diagnóstico #}
+              <span style="color:#888; font-size:0.8em;">[user:{{ usuario_id }} post:{{ post.autor_id }} cmt:{{ comentario.autor_id }}]</span>
+              {% set user_id_int = usuario_id|int %}
+              {% set post_autor_id_int = post.autor_id|int %}
+              {% set comentario_autor_id_int = comentario.autor_id|int %}
+              <form method="GET" action="{{ url_for('direct_novo', user_id=comentario.autor_id) }}" style="display:inline;">
+                <button type="submit" class="btn" style="margin-left:8px; background:none; border:none; color:#264d9e; font-size:1.2em; padding:2px 10px; cursor:pointer;">
+                  <i class="fa-solid fa-paper-plane"></i>
+                </button>
+              </form>
               <form class="delete-comment-form" data-post-id="{{ post.id }}" data-comment-idx="{{ loop.index0 }}" method="POST" action="/excluir_comentario/{{ post.id }}/{{ loop.index0 }}" style="display:inline;">
                 <button type="submit" class="delete-comment-btn" title="Excluir comentário" style="color:#e74c3c;background:none;border:none;cursor:pointer;font-size:1em;">🗑️</button>
               </form>
@@ -217,9 +291,46 @@
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.btn-follow').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          if (btn.textContent.trim() === 'Seguir') {
+            btn.textContent = 'Seguindo';
+            btn.classList.add('seguindo');
+          } else {
+            btn.textContent = 'Seguir';
+            btn.classList.remove('seguindo');
+          }
+        });
+      });
+    });
+  </script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
     lucide.createIcons();
+
+    // Modal de exclusão
+    let postIdToDelete = null;
+    document.querySelectorAll('.delete-post-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        postIdToDelete = this.getAttribute('data-post-id');
+        document.getElementById('modal-excluir').style.display = 'flex';
+      });
+    });
+    document.getElementById('cancelar-excluir').onclick = function() {
+      document.getElementById('modal-excluir').style.display = 'none';
+      postIdToDelete = null;
+    };
+    document.getElementById('form-excluir-post').onsubmit = function(e) {
+      if(postIdToDelete) {
+        this.action = `/excluir/${postIdToDelete}`;
+      }
+      document.getElementById('modal-excluir').style.display = 'none';
+      postIdToDelete = null;
+    };
   </script>
 </body>
 </html>
