@@ -1,37 +1,35 @@
-import os  # Importa funções do sistema operacional
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash  # Importa funções do Flask
-from werkzeug.utils import secure_filename  # Garante nomes seguros para arquivos
-import uuid  # Gera IDs únicos
-import json  # Manipula arquivos JSON
-from datetime import datetime  # Usa data e hora
-import google.generativeai as genai  # API Gemini
-from dotenv import load_dotenv  # Carrega variáveis do arquivo .env
+import os  
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash 
+from werkzeug.utils import secure_filename  
+import uuid  
+import json  
+from datetime import datetime
+import google.generativeai as genai 
+from dotenv import load_dotenv  
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# Carrega variáveis de ambiente do arquivo .env
+
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_SECRET_KEY", "senac123")  # Chave da sessão
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "senac123")  
 
 
-# ------------------- CAMINHOS DOS ARQUIVOS JSON -------------------
+#CAMINHOS DOS ARQUIVOS JSON 
 USUARIOS_JSON = os.path.join(os.path.dirname(__file__), 'banco_dados', 'usuarios.json')
 PUBLICACOES_JSON = os.path.join(os.path.dirname(__file__), 'banco_dados', 'publicacoes.json')
 UPLOAD_FOLDER = os.path.join('static', 'img', 'uploads')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp'}
 
-# Configurações do app
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# ------------------- FUNÇÕES AUXILIARES -------------------
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def gerar_id():
     return str(uuid.uuid4())
 
-# ------------------- FUNÇÕES PARA MANIPULAR USUÁRIOS -------------------
+
 def carregar_usuarios():
     if os.path.exists(USUARIOS_JSON):
         with open(USUARIOS_JSON, 'r', encoding='utf-8') as f:
@@ -42,7 +40,7 @@ def salvar_usuarios(usuarios):
     with open(USUARIOS_JSON, 'w', encoding='utf-8') as f:
         json.dump(usuarios, f, ensure_ascii=False, indent=2)
 
-# ------------------- FUNÇÕES PARA MANIPULAR PUBLICAÇÕES -------------------
+
 def carregar_publicacoes():
     if os.path.exists(PUBLICACOES_JSON):
         with open(PUBLICACOES_JSON, 'r', encoding='utf-8') as f:
@@ -53,7 +51,6 @@ def salvar_publicacoes(publicacoes_list):
     with open(PUBLICACOES_JSON, 'w', encoding='utf-8') as f:
         json.dump(publicacoes_list, f, ensure_ascii=False, indent=2)
 
-# ------------------- AUTENTICAÇÃO E USUÁRIOS -------------------
 @app.route("/login", methods=["GET","POST"])
 def login():
     if "user_id" in session:
@@ -83,7 +80,7 @@ def register():
         email = request.form.get("email", "").strip()
         password = request.form.get("password", "").strip()
         confirm_password = request.form.get("confirm_password", "").strip()
-        tipo = request.form.get("tipo", "voluntario")  # Adiciona escolha de tipo
+        tipo = request.form.get("tipo", "voluntario")  
         
         if password != confirm_password:
             flash("As senhas não conferem.", "danger")
@@ -143,7 +140,7 @@ def logout():
     flash("Você saiu do sistema.", "info")
     return redirect(url_for("login"))
 
-# ------------------- EDITAR PERFIL E FOTO -------------------
+
 @app.route('/editar_perfil', methods=['POST'])
 def editar_perfil():
     if "user_id" not in session:
@@ -167,7 +164,7 @@ def editar_perfil():
         
         if tipo in ['voluntario', 'beneficiario']:
             usuario["tipo"] = tipo
-            session["user_tipo"] = tipo  # Atualiza na sessão
+            session["user_tipo"] = tipo
         
         if foto and allowed_file(foto.filename):
             filename = f"perfil_{usuario['id']}_{secure_filename(foto.filename)}"
@@ -175,7 +172,7 @@ def editar_perfil():
             foto.save(save_path)
             usuario["foto_perfil"] = f"img/uploads/{filename}"
         
-        # Atualiza o usuário na lista e salva
+        
         for idx, u in enumerate(usuarios):
             if u["id"] == usuario["id"]:
                 usuarios[idx] = usuario
@@ -188,17 +185,16 @@ def editar_perfil():
     
     return redirect(url_for("perfil"))
 
-# ------------------- ROTAS PRINCIPAIS -------------------
+
 @app.route('/')
 def feed():
     if "user_id" not in session:
         flash("Faça login para acessar o feed.", "warning")
         return redirect(url_for("login"))
     
-    # Carrega todas as publicações do arquivo JSON
     todas_publicacoes = carregar_publicacoes()
     
-    # Ordena por timestamp (mais recentes primeiro)
+
     todas_publicacoes.sort(key=lambda x: datetime.strptime(x.get('timestamp', '01/01/2000 00:00'), '%d/%m/%Y %H:%M'), reverse=True)
     
     return render_template('feed.html', 
@@ -311,7 +307,7 @@ def direct():
 
 
 
-# ------------------- ENVIAR MENSAGEM NO DIRECT -------------------
+# ENVIAR MENSAGEM NO DIRECT 
 @app.route('/direct/enviar/<conversa_id>', methods=['POST'])
 def enviar_mensagem(conversa_id):
     if "user_id" not in session:
@@ -352,7 +348,7 @@ def notificacoes():
 def ajuda():
     return render_template('ajuda.html')
 
-# ------------------- DIRECT: CRIAR/ABRIR CONVERSA ENTRE DOADOR E INTERESSADO -------------------
+# DIRECT: CRIAR/ABRIR CONVERSA ENTRE DOADOR E INTERESSADO
 @app.route('/direct/novo/<int:user_id>', methods=['GET'])
 def direct_novo(user_id):
     if "user_id" not in session:
@@ -362,14 +358,14 @@ def direct_novo(user_id):
     if meu_id == user_id:
         flash("Você não pode iniciar uma conversa consigo mesmo.", "warning")
         return redirect(url_for("direct"))
-    # Carregar mensagens existentes
+    
     mensagens_path = os.path.join(os.path.dirname(__file__), 'banco_dados', 'mensagens.json')
     if not os.path.exists(mensagens_path):
         mensagens = []
     else:
         with open(mensagens_path, 'r', encoding='utf-8') as f:
             mensagens = json.load(f)
-    # Procurar conversa existente (ordem dos ids não importa)
+ 
     conversa = next((c for c in mensagens if set(c['participantes']) == set([meu_id, user_id])), None)
     if not conversa:
         # Criar nova conversa
@@ -384,7 +380,7 @@ def direct_novo(user_id):
   
     return redirect(url_for('direct', user_id=user_id))
 
-# ------------------- PUBLICAR POST (AGORA VINCULADO AO USUÁRIO DA SESSÃO) -------------------
+# PUBLICAR POST (AGORA VINCULADO AO USUÁRIO DA SESSÃO) 
 
 @app.route('/publicar', methods=['POST'])
 def publicar():
@@ -441,7 +437,7 @@ def publicar():
     else:
         flash("Digite algo para publicar.", "warning")
     return redirect(url_for('feed'))
-# ------------------- REPORTAR POST -------------------
+
 @app.route('/reportar/<post_id>', methods=['POST'])
 def reportar_post(post_id):
     if "user_id" not in session:
@@ -463,7 +459,7 @@ def reportar_post(post_id):
     else:
         flash("Post não encontrado.", "danger")
     return redirect(url_for('feed'))
-# ------------------- INTERAÇÕES COM POSTS -------------------
+
 
 # NOVO: Curtir/descurtir persistente por usuário
 @app.route('/curtir/<post_id>', methods=['POST'])
@@ -581,7 +577,7 @@ def excluir_comentario(post_id, comment_idx):
     flash("Comentário não encontrado.", "danger")
     return redirect(url_for('feed'))
 
-# ------------------- CHATBOT COM GEMINI -------------------
+# CHATBOT COM GEMINI 
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 genai.configure(api_key=GOOGLE_API_KEY)
 
@@ -678,7 +674,7 @@ def chatbot():
     except Exception as e:
         return jsonify({"erro": f"Erro ao conectar à IA: {e}"}), 500
 
-# ------------------- ROTAS ADICIONAIS PARA A REDE SOCIAL SOLIDÁRIA -------------------
+
 @app.route('/doacoes')
 def doacoes():
     if "user_id" not in session:

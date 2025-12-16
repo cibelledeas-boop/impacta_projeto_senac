@@ -32,5 +32,15 @@
     "tipo": "voluntario",
     "bio": "",
     "data_cadastro": "11/12/2025"
+  },
+  {
+    "id": 5,
+    "name": "Maria Fernanda da Silva Pimentel",
+    "email": "mariafer0035@gmail.com",
+    "password_hash": "scrypt:32768:8:1$qpiAO3ENanjfLkD4$097fc75495251dda0838b1f37b9c10d95767dbc2e3fae263e0fb541adc9ed2a946916969eb41895baf8faa52bb2273299918bc6e0f19ac96ddee86eddf322018",
+    "foto_perfil": "img/img_feed/user_padrao_noFoto.png",
+    "tipo": "voluntario",
+    "bio": "",
+    "data_cadastro": "16/12/2025"
   }
 ]
