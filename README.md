@@ -1,4 +1,4 @@
-Impacta - Projeto integrador
+Impacta - 
 Projeto integrador de uma rede social solidária com a finalidade de conectar doadores à receptores em vulnarabilidade social.
 
 Visão Geral:
